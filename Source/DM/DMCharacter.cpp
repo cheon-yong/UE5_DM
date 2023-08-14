@@ -7,7 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-
+#include "Components/WidgetComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADMCharacter
@@ -35,6 +35,9 @@ ADMCharacter::ADMCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+
+	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
+	OverheadWidget->SetupAttachment(RootComponent);
 }
 
 void ADMCharacter::BeginPlay()
@@ -69,6 +72,8 @@ void ADMCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADMCharacter::Look);
+
+		//Crouching
 	}
 }
 
