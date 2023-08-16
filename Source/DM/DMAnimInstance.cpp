@@ -40,6 +40,7 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			bShouldMove = false;
 		}
 
+		bIsCrouching = Character->bIsCrouched;
 		bIsFalling = MovementComponent->IsFalling();
 	}
 }

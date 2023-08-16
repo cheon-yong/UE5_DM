@@ -51,6 +51,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* CrouchAction;
+
 	/** Bool for AnimBP to switch to another animation set */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Weapon)
 	bool bHasRifle;
@@ -67,8 +70,12 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
+	void DMJump();
+
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	void Crouch(const FInputActionValue& Value);
 
 protected:
 	// APawn interface

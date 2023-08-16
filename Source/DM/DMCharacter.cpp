@@ -35,14 +35,14 @@ ADMCharacter::ADMCharacter()
 	Mesh1P->CastShadow = false;
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
-
-	
 }
 
 void ADMCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -63,7 +63,7 @@ void ADMCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		//Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ADMCharacter::DMJump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		//Moving
@@ -73,6 +73,7 @@ void ADMCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADMCharacter::Look);
 
 		//Crouching
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ADMCharacter::Crouch);
 	}
 }
 
@@ -90,6 +91,12 @@ void ADMCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
+void ADMCharacter::DMJump()
+{
+	Jump();
+	UnCrouch();
+}
+
 void ADMCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -102,6 +109,15 @@ void ADMCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+void ADMCharacter::Crouch(const FInputActionValue& Value)
+{
+	if (Controller != nullptr)
+	{
+		bIsCrouched ? UnCrouch() : ACharacter::Crouch();
+	}
+}
+
 
 void ADMCharacter::SetHasRifle(bool bNewHasRifle)
 {
