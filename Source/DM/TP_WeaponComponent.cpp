@@ -2,7 +2,7 @@
 
 
 #include "TP_WeaponComponent.h"
-#include "Character/DMCharacter.h"
+#include "Character/DMPlayer.h"
 #include "Actor/DMProjectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
@@ -63,7 +63,7 @@ void UTP_WeaponComponent::Fire()
 	}
 }
 
-void UTP_WeaponComponent::AttachWeapon(ADMCharacter* TargetCharacter)
+void UTP_WeaponComponent::AttachWeapon(ADMPlayer* TargetCharacter)
 {
 	Character = TargetCharacter;
 	if (Character == nullptr)

@@ -1,34 +1,27 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "InputActionValue.h"
+#include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
-#include "DMCharacter.generated.h"
+#include "DMPlayerState.generated.h"
 
-class UInputComponent;
-class USkeletalMeshComponent;
-class USceneComponent;
-class UCameraComponent;
-class UAnimMontage;
-class USoundBase;
+/**
+ * 
+ */
+
 class UAbilitySystemComponent;
 class UAttributeSet;
 
-UCLASS(config=Game)
-class ADMCharacter : public ACharacter, public IAbilitySystemInterface
+UCLASS()
+class DM_API ADMPlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-
-
+	
 public:
-	ADMCharacter();
-
-protected:
-	virtual void BeginPlay();
-
+	ADMPlayerState();
+	
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
@@ -39,6 +32,4 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
-
 };
-
