@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "DMGameMode.h"
-#include "DMCharacter.h"
+#include "Game/DMGameMode.h"
+#include "Character/DMCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 ADMGameMode::ADMGameMode()

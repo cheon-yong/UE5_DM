@@ -21,5 +21,10 @@ public class DM : ModuleRules
 			"GameplayTasks",
 			"UMG"
 		});
+
+		PrivateIncludePaths.AddRange(new string[]
+		{
+			"DM/",
+		});
 	}
 }

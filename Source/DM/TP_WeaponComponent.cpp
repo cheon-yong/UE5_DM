@@ -2,8 +2,8 @@
 
 
 #include "TP_WeaponComponent.h"
-#include "DMCharacter.h"
-#include "DMProjectile.h"
+#include "Character/DMCharacter.h"
+#include "Actor/DMProjectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"

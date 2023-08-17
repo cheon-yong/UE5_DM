@@ -2,8 +2,8 @@
 
 
 
-#include "DMAnimInstance.h"
-#include "DMCharacter.h"
+#include "Animation/DMAnimInstance.h"
+#include "Character/DMCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "AnimGraphRuntime/Public/KismetAnimationLibrary.h"
