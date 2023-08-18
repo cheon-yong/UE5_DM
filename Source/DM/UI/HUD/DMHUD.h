@@ -7,6 +7,11 @@
 #include "DMHUD.generated.h"
 
 class UDMUserWidget;
+class UDMOverlayWidget;
+class APlayerController;
+class APlayerState;
+class UAbilitySystemComponent;
+class UAttributeSet;
 
 /**
  * 
@@ -21,9 +26,12 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+
+public:
 	UPROPERTY()
-	TObjectPtr<UDMUserWidget> OverlayWidget;
+	TObjectPtr<UDMOverlayWidget> OverlayWidget;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UDMUserWidget> OverlayWidgetClass;
+	TSubclassOf<UDMOverlayWidget> OverlayWidgetClass;
 };

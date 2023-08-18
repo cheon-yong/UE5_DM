@@ -44,9 +44,21 @@ class DM_API UDMUserWidget : public UUserWidget
 	
 public:
 	UFUNCTION(BlueprintCallable)
+	void SetParentWidget(UDMUserWidget* ParentWidget);
+
+	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
-	
+
 protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void ParentSet();
+
+	virtual void BroadcastInitialValues() {}
+
+protected:
+	UPROPERTY(BlueprintReadOnly, Category="Controller")
+	TObjectPtr<UDMUserWidget> Parent;
+
 	UPROPERTY(BlueprintReadOnly, Category="Controller")
 	TObjectPtr<APlayerController> PlayerController;
 

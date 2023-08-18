@@ -6,8 +6,11 @@
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include <Controller/DMPlayerState.h>
+#include "Controller/DMPlayerState.h"
 #include "AbilitySystemComponent.h"
+#include "Controller/DMPlayerController.h"
+#include "Controller/DMPlayerState.h"
+#include "UI/HUD/DMHUD.h"
 
 ADMPlayer::ADMPlayer()
 {
@@ -57,6 +60,14 @@ void ADMPlayer::InitAbiilityActorInfo()
 
 	AbilitySystemComponent = DMPlayerState->GetAbilitySystemComponent();
 	AttributeSet = DMPlayerState->GetAttributeSet();
+
+	if (ADMPlayerController* DMPlayerController = Cast<ADMPlayerController>(GetController()))
+	{
+		if (ADMHUD* DMHUD = Cast<ADMHUD>(DMPlayerController->GetHUD()))
+		{
+			DMHUD->InitOverlay(DMPlayerController, DMPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
 
 void ADMPlayer::SetHasRifle(bool bNewHasRifle)
