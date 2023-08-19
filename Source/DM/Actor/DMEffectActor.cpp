@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
 #include "AbilitySystem/DMAttributeSet.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 // Sets default values
 ADMEffectActor::ADMEffectActor()
@@ -13,38 +14,29 @@ ADMEffectActor::ADMEffectActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	SetRootComponent(Mesh);
-
-	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
-	Sphere->SetupAttachment(GetRootComponent());
-
+	SetRootComponent(CreateDefaultSubobject<USceneComponent>("SceneRoot"));
 }
 
-// Called when the game starts or when spawned
 void ADMEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+}
+
+void ADMEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+{
 	
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ADMEffectActor::OnOverlap);
-	Sphere->OnComponentEndOverlap.AddDynamic(this, &ADMEffectActor::EndOverlap);
-}
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if (TargetASC == nullptr)
+		return;
 
-void ADMEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (auto* ASCInterface = Cast<IAbilitySystemInterface>(OtherActor))
-	{
-		const UDMAttributeSet* DMAttributeSet = Cast<UDMAttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(UDMAttributeSet::StaticClass()));
+	check(GameplayEffectClass);
 
-		UDMAttributeSet* MutableDMAttriubteSet = const_cast<UDMAttributeSet*>(DMAttributeSet);
-		MutableDMAttriubteSet->SetHealth(DMAttributeSet->GetHealth() - 25.f);
-		
-		Destroy();
-	}
-}
+	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
 
-void ADMEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
+	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);
+	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 }
 
 
