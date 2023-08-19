@@ -18,12 +18,13 @@ void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystem
 	UDMOverlayWidget* Widget = CreateWidget<UDMOverlayWidget>(GetWorld(), OverlayWidgetClass);
 	Widget->AddToViewport();
 	OverlayWidget = Widget;
-
+	
 	check(OverlayWidget);
 	check(OverlayWidgetClass);
 
 	// WidgetController Set
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	OverlayWidget->SetWidgetControllerParams(WidgetControllerParams);
+	OverlayWidget->BindCallbacksToDependencies();
 	OverlayWidget->BroadcastInitialValues();
 }

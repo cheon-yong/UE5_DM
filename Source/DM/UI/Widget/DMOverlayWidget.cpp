@@ -3,6 +3,7 @@
 
 #include "UI/Widget/DMOverlayWidget.h"
 #include "AbilitySystem/DMAttributeSet.h"
+#include "AbilitySystem/DMAbilitySystemComponent.h"
 
 void UDMOverlayWidget::BroadcastInitialValues()
 {
@@ -12,4 +13,37 @@ void UDMOverlayWidget::BroadcastInitialValues()
 	OnMaxHealthChanged.Broadcast(DMAttributeSet->GetMaxHealth());
 	OnStaminaChanged.Broadcast(DMAttributeSet->GetStamina());
 	OnMaxStaminaChanged.Broadcast(DMAttributeSet->GetMaxStamina());
+}
+
+void UDMOverlayWidget::BindCallbacksToDependencies()
+{
+	const UDMAttributeSet* DMAttributeSet = CastChecked<UDMAttributeSet>(AttributeSet);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetHealthAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data)
+		{
+			OnHealthChanged.Broadcast(Data.NewValue);
+		}
+	);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetMaxHealthAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data)
+		{
+			OnMaxHealthChanged.Broadcast(Data.NewValue);
+		}
+	);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetStaminaAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data)
+		{
+			OnStaminaChanged.Broadcast(Data.NewValue);
+		}
+	);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetMaxStaminaAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data)
+		{
+			OnMaxStaminaChanged.Broadcast(Data.NewValue);
+		}
+	);
 }
