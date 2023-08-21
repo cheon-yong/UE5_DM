@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "DMAbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer&);
+
 /**
  * 
  */
@@ -14,4 +16,11 @@ class DM_API UDMAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 	
+public:
+	void AbilityActorInfoSet();
+
+	void EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& ES, FActiveGameplayEffectHandle AGEH);
+
+public:
+	FEffectAssetTags EffectAssetTags;
 };

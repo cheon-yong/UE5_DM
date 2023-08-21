@@ -46,4 +46,31 @@ void UDMOverlayWidget::BindCallbacksToDependencies()
 			OnMaxStaminaChanged.Broadcast(Data.NewValue);
 		}
 	);
+
+	Cast<UDMAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+		[this](const FGameplayTagContainer& AssetTags)
+		{
+			for (const FGameplayTag& Tag : AssetTags)
+			{
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+
+
+				// "Message.HealthPotion".MathcesTag("Message") => true;
+				// "Message".MathcesTag("Message.HealthPotion") => false;
+				// Contain 같은 느낌?
+
+				if (Tag.MatchesTag(MessageTag))
+				{
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					// TODO
+
+					MessageWidgetRowDelegate.Broadcast(*Row);
+				}
+
+
+				/*const FString Msg = FString::Printf(TEXT("GE TAG : %s"), *Tag.ToString());
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, Msg);*/
+			}
+		}
+	);
 }

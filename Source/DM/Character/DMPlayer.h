@@ -21,7 +21,7 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 private:
-	void InitAbiilityActorInfo();
+	void InitAbiilityActorInfo() override;
 
 protected:
 	/** Pawn mesh: 1st person view (arms; seen only by self) */

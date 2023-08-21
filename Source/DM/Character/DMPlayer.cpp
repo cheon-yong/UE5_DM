@@ -11,6 +11,7 @@
 #include "Controller/DMPlayerController.h"
 #include "Controller/DMPlayerState.h"
 #include "UI/HUD/DMHUD.h"
+#include "AbilitySystem/DMAbilitySystemComponent.h"
 
 ADMPlayer::ADMPlayer()
 {
@@ -59,6 +60,7 @@ void ADMPlayer::InitAbiilityActorInfo()
 	DMPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(DMPlayerState, this);
 
 	AbilitySystemComponent = DMPlayerState->GetAbilitySystemComponent();
+	Cast<UDMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet = DMPlayerState->GetAttributeSet();
 
 	if (ADMPlayerController* DMPlayerController = Cast<ADMPlayerController>(GetController()))
