@@ -1,0 +1,50 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "DMGameplayTags.h"
+#include "GameplayTagsManager.h"
+
+FDMGameplayTags FDMGameplayTags::GameplayTags;
+
+void FDMGameplayTags::InitializeNativeGameplayTags()
+{
+	// Primary
+	GameplayTags.Attribute_Primary_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Primary.Attack"),
+		FString("Increase Attack Damage")
+	);
+	GameplayTags.Attribute_Primary_Defense = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Primary.Defense"),
+		FString("Decrease Damage taken")
+	);
+	GameplayTags.Attribute_Primary_Critical = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Primary.Critical"),
+		FString("Sometimes give stronger damage")
+	);
+	GameplayTags.Attribute_Primary_MoveSpeed = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Primary.MoveSpeed"),
+		FString("Increase Move Speed")
+	);
+
+	// Second
+	GameplayTags.Attribute_Second_AttackSpeed = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Second.AttackSpeed"),
+		FString("Increase Attack Speed")
+	);
+	GameplayTags.Attribute_Second_CriticalDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Second.CriticalDamage"),
+		FString("Increase Critical Damage")
+	);
+	GameplayTags.Attribute_Second_CooltimeReduction = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Second.CooltimeReduction"),
+		FString("Decrease Cool time")
+	);
+	GameplayTags.Attribute_Second_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Second.MaxHealth"),
+		FString("Increase Max Health")
+	);
+	GameplayTags.Attribute_Second_MaxMana = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Second.MaxMana"),
+		FString("Increase Max Mana")
+	);
+}
