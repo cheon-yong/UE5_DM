@@ -19,6 +19,7 @@ void ADMPlayerController::BeginPlay()
 	}
 
 	GetCharacter()->GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
+	bShowMouse
 }
 
 void ADMPlayerController::SetupInputComponent()
