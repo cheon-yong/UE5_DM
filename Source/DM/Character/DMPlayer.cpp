@@ -42,7 +42,7 @@ void ADMPlayer::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	// Server 시점
-	InitAbiilityActorInfo();
+	InitAbilityActorInfo();
 }
 
 void ADMPlayer::OnRep_PlayerState()
@@ -50,10 +50,17 @@ void ADMPlayer::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 
 	// Client 시점
-	InitAbiilityActorInfo();
+	InitAbilityActorInfo();
 }
 
-void ADMPlayer::InitAbiilityActorInfo()
+int32 ADMPlayer::GetPlayerLevel()
+{
+	ADMPlayerState* PS = GetPlayerState<ADMPlayerState>();
+	check(PS);
+	return PS->GetPlayerLevel();
+}
+
+void ADMPlayer::InitAbilityActorInfo()
 {
 	ADMPlayerState* DMPlayerState = GetPlayerState<ADMPlayerState>();
 	check(DMPlayerState);
@@ -70,6 +77,8 @@ void ADMPlayer::InitAbiilityActorInfo()
 			DMHUD->InitOverlay(DMPlayerController, DMPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
+
+	InitializeDefaultAttributes();
 }
 
 void ADMPlayer::SetHasRifle(bool bNewHasRifle)

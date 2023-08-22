@@ -4,6 +4,7 @@
 #include "Controller/DMPlayerState.h"
 #include <AbilitySystem/DMAbilitySystemComponent.h>
 #include <AbilitySystem/DMAttributeSet.h>
+#include "Net/UnrealNetwork.h"
 
 ADMPlayerState::ADMPlayerState()
 {
@@ -13,4 +14,16 @@ ADMPlayerState::ADMPlayerState()
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UDMAttributeSet>(TEXT("AttributeSet"));
+}
+
+void ADMPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME_CONDITION_NOTIFY(ADMPlayerState, Level, COND_None, REPNOTIFY_Always);
+}
+
+void ADMPlayerState::OnReq_Level(int32 OldLevel)
+{
+
 }

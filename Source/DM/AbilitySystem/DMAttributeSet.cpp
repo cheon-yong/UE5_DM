@@ -11,18 +11,25 @@ UDMAttributeSet::UDMAttributeSet()
 {
 	InitHealth(50.f);
 	InitMaxHealth(100.f);
-	InitStamina(50.f);
-	InitMaxStamina(100.f);
+	InitMana(50.f);
+	InitMaxMana(100.f);
 }
 
 void UDMAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+	// Vital
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Mana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
+
+	// Primary
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Attack, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Defense, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Critical, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, MoveSpeed, COND_None, REPNOTIFY_Always);
 }
 
 void UDMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -34,9 +41,9 @@ void UDMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, fl
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
 	}
 
-	if (Attribute == GetStaminaAttribute())
+	if (Attribute == GetManaAttribute())
 	{
-		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStamina());
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());
 	}
 }
 
@@ -52,8 +59,8 @@ void UDMAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 
-	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
-		SetStamina(FMath::Clamp(GetStamina(), 0.f, GetMaxStamina()));
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 }
 
 void UDMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props)
@@ -99,12 +106,32 @@ void UDMAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue) co
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, MaxHealth, OldValue);
 }
 
-void UDMAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldValue) const
+void UDMAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldValue) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, Stamina, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, Mana, OldValue);
 }
 
-void UDMAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldValue) const
+void UDMAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldValue) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, MaxStamina, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, MaxMana, OldValue);
+}
+
+void UDMAttributeSet::OnRep_Attack(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, Attack, OldValue);
+}
+
+void UDMAttributeSet::OnRep_Defense(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, Defense, OldValue);
+}
+
+void UDMAttributeSet::OnRep_Critical(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, Critical, OldValue);
+}
+
+void UDMAttributeSet::OnRep_MoveSpeed(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, MoveSpeed, OldValue);
 }

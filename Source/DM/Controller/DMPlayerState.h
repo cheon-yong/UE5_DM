@@ -22,14 +22,23 @@ class DM_API ADMPlayerState : public APlayerState, public IAbilitySystemInterfac
 public:
 	ADMPlayerState();
 	
-public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	int32 GetPlayerLevel() { return Level; }
+
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnReq_Level)
+	int32 Level = 1;
+
+	UFUNCTION()
+	void OnReq_Level(int32 OldLevel);
 };

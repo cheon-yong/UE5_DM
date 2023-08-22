@@ -20,8 +20,10 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 
+	virtual int32 GetPlayerLevel() override;
+
 private:
-	void InitAbiilityActorInfo() override;
+	void InitAbilityActorInfo() override;
 
 protected:
 	/** Pawn mesh: 1st person view (arms; seen only by self) */

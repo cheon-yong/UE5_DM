@@ -11,8 +11,8 @@ void UDMOverlayWidget::BroadcastInitialValues()
 
 	OnHealthChanged.Broadcast(DMAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(DMAttributeSet->GetMaxHealth());
-	OnStaminaChanged.Broadcast(DMAttributeSet->GetStamina());
-	OnMaxStaminaChanged.Broadcast(DMAttributeSet->GetMaxStamina());
+	OnManaChanged.Broadcast(DMAttributeSet->GetMana());
+	OnMaxManaChanged.Broadcast(DMAttributeSet->GetMaxMana());
 }
 
 void UDMOverlayWidget::BindCallbacksToDependencies()
@@ -33,17 +33,17 @@ void UDMOverlayWidget::BindCallbacksToDependencies()
 		}
 	);
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetStaminaAttribute()).AddLambda(
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetManaAttribute()).AddLambda(
 		[this](const FOnAttributeChangeData& Data)
 		{
-			OnStaminaChanged.Broadcast(Data.NewValue);
+			OnManaChanged.Broadcast(Data.NewValue);
 		}
 	);
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetMaxStaminaAttribute()).AddLambda(
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAttributeSet->GetMaxManaAttribute()).AddLambda(
 		[this](const FOnAttributeChangeData& Data)
 		{
-			OnMaxStaminaChanged.Broadcast(Data.NewValue);
+			OnMaxManaChanged.Broadcast(Data.NewValue);
 		}
 	);
 
