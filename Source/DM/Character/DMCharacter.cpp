@@ -28,6 +28,7 @@ void ADMCharacter::InitializeDefaultAttributes()
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+	ApplyEffectToSelf(DefaultSecondAttributes, 1.f);
 }
 
 

@@ -88,6 +88,15 @@ public:
 
 	UFUNCTION()
 	void OnRep_MoveSpeed(const FGameplayAttributeData& OldValue) const;
+
+	UFUNCTION()
+	void OnRep_AttackSpeed(const FGameplayAttributeData& OldValue) const;
+
+	UFUNCTION()
+	void OnRep_CooltimeReduction(const FGameplayAttributeData& OldValue) const;
+
+	UFUNCTION()
+	void OnRep_CriticalDamage(const FGameplayAttributeData& OldValue) const;
 	
 public:
 	// Vital Attributes
@@ -127,4 +136,16 @@ public:
  
 	// Secondary Attibutes
 	// 공격속도, 쿨타임감소, 크리티컬 공증
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_AttackSpeed, Category = "Second Attributes")
+	FGameplayAttributeData AttackSpeed;
+	ATTRIBUTE_ACCESSORS(UDMAttributeSet, AttackSpeed);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CooltimeReduction, Category = "Second Attributes")
+	FGameplayAttributeData CooltimeReduction;
+	ATTRIBUTE_ACCESSORS(UDMAttributeSet, CooltimeReduction);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalDamage, Category = "Second Attributes")
+	FGameplayAttributeData CriticalDamage;
+	ATTRIBUTE_ACCESSORS(UDMAttributeSet, CriticalDamage);
+
 };

@@ -30,6 +30,11 @@ void UDMAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Defense, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, Critical, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, MoveSpeed, COND_None, REPNOTIFY_Always);
+
+	// Second
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, AttackSpeed, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, CooltimeReduction, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMAttributeSet, CriticalDamage, COND_None, REPNOTIFY_Always);
 }
 
 void UDMAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -134,4 +139,19 @@ void UDMAttributeSet::OnRep_Critical(const FGameplayAttributeData& OldValue) con
 void UDMAttributeSet::OnRep_MoveSpeed(const FGameplayAttributeData& OldValue) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, MoveSpeed, OldValue);
+}
+
+void UDMAttributeSet::OnRep_AttackSpeed(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, AttackSpeed, OldValue);
+}
+
+void UDMAttributeSet::OnRep_CooltimeReduction(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, CooltimeReduction, OldValue);
+}
+
+void UDMAttributeSet::OnRep_CriticalDamage(const FGameplayAttributeData& OldValue) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMAttributeSet, CriticalDamage, OldValue);
 }
