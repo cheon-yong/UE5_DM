@@ -148,4 +148,8 @@ public:
 	FGameplayAttributeData CriticalDamage;
 	ATTRIBUTE_ACCESSORS(UDMAttributeSet, CriticalDamage);
 
+	template<class T>
+	using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 };

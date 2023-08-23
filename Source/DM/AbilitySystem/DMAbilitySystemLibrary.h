@@ -15,9 +15,9 @@ class DM_API UDMAbilitySystemLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	
-	UFUNCTION(BlueprintPure, Category="DMAbilitySystemLibrary|UUserWidget")
-	static struct FWidgetControllerParams GetFWidgetControllerParams(const UObject* WorldObjectContext);
+	UFUNCTION(BlueprintPure, Category = "DMAbilitySystemLibrary|AWidgetController")
+	static class UOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
 
-	UFUNCTION(BlueprintPure, Category = "DMAbilitySystemLibrary|UUserWidget")
-	static class UDMAttributeMenuWidget* GetDMAttributeMenuWidget(const UObject* WorldObjectContext);
+	UFUNCTION(BlueprintPure, Category = "DMAbilitySystemLibrary|AWidgetController")
+	static class UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
 };

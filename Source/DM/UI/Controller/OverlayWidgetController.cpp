@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/Widget/DMOverlayWidget.h"
+#include "UI/Controller/OverlayWidgetController.h"
 #include "AbilitySystem/DMAttributeSet.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 
-void UDMOverlayWidget::BroadcastInitialValues()
+void UOverlayWidgetController::BroadcastInitialValues()
 {
 	const UDMAttributeSet* DMAttributeSet = CastChecked<UDMAttributeSet>(AttributeSet);
 
@@ -15,7 +15,7 @@ void UDMOverlayWidget::BroadcastInitialValues()
 	OnMaxManaChanged.Broadcast(DMAttributeSet->GetMaxMana());
 }
 
-void UDMOverlayWidget::BindCallbacksToDependencies()
+void UOverlayWidgetController::BindCallbacksToDependencies()
 {
 	const UDMAttributeSet* DMAttributeSet = CastChecked<UDMAttributeSet>(AttributeSet);
 

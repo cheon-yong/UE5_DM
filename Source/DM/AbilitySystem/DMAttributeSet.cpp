@@ -6,13 +6,28 @@
 #include "GameplayEffectExtension.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameFramework/Character.h"
+#include "DMGameplayTags.h"
 
 UDMAttributeSet::UDMAttributeSet()
 {
-	InitHealth(50.f);
+	/*InitHealth(50.f);
 	InitMaxHealth(100.f);
 	InitMana(50.f);
-	InitMaxMana(100.f);
+	InitMaxMana(100.f);*/
+
+	const FDMGameplayTags& GameplayTags = FDMGameplayTags::Get();
+
+	// Primary
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Attack, GetAttackAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Critical, GetCriticalAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Defense, GetDefenseAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_MoveSpeed, GetMoveSpeedAttribute);
+
+	TagsToAttributes.Add(GameplayTags.Attribute_Second_AttackSpeed, GetAttackSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Second_CooltimeReduction, GetCooltimeReductionAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Second_CriticalDamage, GetCriticalDamageAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Second_MaxHealth, GetMaxHealthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Second_MaxMana, GetMaxManaAttribute);
 }
 
 void UDMAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const

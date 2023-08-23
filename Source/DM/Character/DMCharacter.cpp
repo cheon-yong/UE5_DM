@@ -27,15 +27,15 @@ void ADMCharacter::BeginPlay()
 void ADMCharacter::InitializeDefaultAttributes()
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultSecondAttributes, 1.f); 
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
-	ApplyEffectToSelf(DefaultSecondAttributes, 1.f);
 }
 
 
 void ADMCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level)
 {
 	check(IsValid(GetAbilitySystemComponent()));
-	check(DefaultPrimaryAttributes);
+	check(GameplayEffectClass);
 
 	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
 	ContextHandle.AddSourceObject(this);

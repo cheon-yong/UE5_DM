@@ -5,43 +5,42 @@
 #include "Kismet/GameplayStatics.h"
 #include "Controller/DMPlayerState.h"
 #include "UI/HUD/DMHUD.h"
-#include "UI/Widget/DMUserWidget.h"
+#include "UI/Controller/DMWidgetController.h"
+#include "UI/Controller/AttributeMenuWidgetController.h"
 
-FWidgetControllerParams UDMAbilitySystemLibrary::GetFWidgetControllerParams(const UObject* WorldObjectContext)
+
+UOverlayWidgetController* UDMAbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
 {
-
-	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldObjectContext, 0))
+	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
 	{
 		if (ADMHUD* DMHUD = Cast<ADMHUD>(PC->GetHUD()))
 		{
-			auto* PS = PC->GetPlayerState<ADMPlayerState>();
-			auto* ASC = PS->GetAbilitySystemComponent();
-			UAttributeSet* AS = PS->GetAttributeSet();
-
-			FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
-			return WidgetControllerParams;
-		}
-	}
-
-	return FWidgetControllerParams();
-}
-
-UDMAttributeMenuWidget* UDMAbilitySystemLibrary::GetDMAttributeMenuWidget(const UObject* WorldObjectContext)
-{
-	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldObjectContext, 0))
-	{
-		if (ADMHUD* DMHUD = Cast<ADMHUD>(PC->GetHUD()))
-		{
-			auto* PS = PC->GetPlayerState<ADMPlayerState>();
-			auto* ASC = PS->GetAbilitySystemComponent();
+			ADMPlayerState* PS = PC->GetPlayerState<ADMPlayerState>();
+			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
 			UAttributeSet* AS = PS->GetAttributeSet();
 
 			const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
-			return DMHUD->GetAttributeMenuWidget(WidgetControllerParams);
+			return DMHUD->GetOverlayWidgetController(WidgetControllerParams);
 		}
 	}
 
 	return nullptr;
 }
 
+UAttributeMenuWidgetController* UDMAbilitySystemLibrary::GetAttributeMenuWidgetController(const UObject* WorldContextObject)
+{
+	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
+	{
+		if (ADMHUD* DMHUD = Cast<ADMHUD>(PC->GetHUD()))
+		{
+			ADMPlayerState* PS = PC->GetPlayerState<ADMPlayerState>();
+			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+			UAttributeSet* AS = PS->GetAttributeSet();
 
+			const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+			return DMHUD->GetAttributeMenuWidgetController(WidgetControllerParams);
+		}
+	}
+
+	return nullptr;
+}

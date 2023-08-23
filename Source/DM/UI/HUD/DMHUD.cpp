@@ -2,9 +2,9 @@
 
 
 #include "UI/HUD/DMHUD.h"
-//#include "UI/Widget/DMUserWidget.h"
-#include "UI/WIdget/DMOverlayWidget.h"
-#include "UI/Widget/DMAttributeMenuWidget.h"
+#include "UI/Widget/DMUserWidget.h"
+#include "UI/Controller/OverlayWidgetController.h"
+#include "UI/Controller/AttributeMenuWidgetController.h"
 
 void ADMHUD::BeginPlay()
 {
@@ -13,34 +13,48 @@ void ADMHUD::BeginPlay()
 	
 }
 
-void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+UOverlayWidgetController* ADMHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
-	// Widget
-	UDMOverlayWidget* Widget = CreateWidget<UDMOverlayWidget>(GetWorld(), OverlayWidgetClass);
-	Widget->AddToViewport();
-	OverlayWidget = Widget;
-	
-	check(OverlayWidget);
-	check(OverlayWidgetClass);
-
-	// WidgetController Set
-	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
-	OverlayWidget->SetWidgetControllerParams(WidgetControllerParams);
-	OverlayWidget->BindCallbacksToDependencies();
-	OverlayWidget->BroadcastInitialValues();
-}
-
-UDMAttributeMenuWidget* ADMHUD::GetAttributeMenuWidget(const FWidgetControllerParams& WCParams)
-{
-	if (AttributeMenuWidget == nullptr)
+	if (OverlayWidgetController == nullptr)
 	{
-		AttributeMenuWidget = CreateWidget<UDMAttributeMenuWidget>(GetWorld(), AttributeMenuWidgetClass);
-		AttributeMenuWidget->AddToViewport();
-		FVector2D position(500, 50);
-		AttributeMenuWidget->SetPositionInViewport(position);
-		AttributeMenuWidget->SetWidgetControllerParams(WCParams);
-		AttributeMenuWidget->BroadcastInitialValues();
+		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
+		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependencies();
 	}
 
-	return AttributeMenuWidget;
+	return OverlayWidgetController;
+}
+
+
+UAttributeMenuWidgetController* ADMHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+		AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);
+		AttributeMenuWidgetController->BindCallbacksToDependencies();
+	}
+
+	return AttributeMenuWidgetController;
+}
+
+
+
+void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+{
+	check(OverlayWidgetClass);
+	check(OverlayWidgetControllerClass);
+
+	// Widget
+	UDMUserWidget* Widget = CreateWidget<UDMUserWidget>(GetWorld(), OverlayWidgetClass);
+	Widget->AddToViewport();
+	OverlayWidget = Widget;
+
+	// WidgetController
+	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
+
+	OverlayWidget->SetWidgetController(WidgetController);
+
+	WidgetController->BroadcastInitialValues();
 }

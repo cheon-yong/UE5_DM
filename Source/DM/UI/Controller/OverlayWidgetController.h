@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/Widget/DMUserWidget.h"
+#include "UI/Controller/DMWidgetController.h"
 #include "Engine/DataTable.h"
 #include "GameplayTagContainer.h"
-#include "DMOverlayWidget.generated.h"
+#include "OverlayWidgetController.generated.h"
+
+class UDMUserWidget;
 
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
@@ -31,8 +33,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidge
 /**
  * 
  */
-UCLASS()
-class DM_API UDMOverlayWidget : public UDMUserWidget
+UCLASS(BlueprintType, Blueprintable)
+class DM_API UOverlayWidgetController : public UDMWidgetController
 {
 	GENERATED_BODY()
 	
@@ -63,7 +65,7 @@ public:
 };
 
 template<typename T>
-T* UDMOverlayWidget::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
+T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
 {
 	return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
 }

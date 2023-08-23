@@ -7,13 +7,11 @@
 #include "DMHUD.generated.h"
 
 class UDMUserWidget;
-class UDMOverlayWidget;
-class APlayerController;
-class APlayerState;
-class UAbilitySystemComponent;
 class UAttributeSet;
-class UDMAttributeMenuWidget;
+class UAbilitySystemComponent;
+class UOverlayWidgetController;
 struct FWidgetControllerParams;
+class UAttributeMenuWidgetController;
 
 /**
  * 
@@ -30,18 +28,25 @@ protected:
 public:
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 
-	UDMAttributeMenuWidget* GetAttributeMenuWidget(const FWidgetControllerParams& WCParams);
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
 
 public:
 	UPROPERTY()
-	TObjectPtr<UDMOverlayWidget> OverlayWidget;
+	TObjectPtr<UDMUserWidget> OverlayWidget;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UDMOverlayWidget> OverlayWidgetClass;
+	TSubclassOf<UDMUserWidget> OverlayWidgetClass;
 
 	UPROPERTY()
-	TObjectPtr<UDMAttributeMenuWidget> AttributeMenuWidget;
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UDMAttributeMenuWidget> AttributeMenuWidgetClass;
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+
+	UPROPERTY()
+	TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
 };

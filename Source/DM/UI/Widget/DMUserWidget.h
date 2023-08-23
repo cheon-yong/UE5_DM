@@ -6,40 +6,6 @@
 #include "Blueprint/UserWidget.h"
 #include "DMUserWidget.generated.h"
 
-class UAbilitySystemComponent;
-class UAttributeSet;
-
-USTRUCT(BlueprintType)
-struct FWidgetControllerParams
-{
-	GENERATED_BODY()
-	
-public:
-	FWidgetControllerParams() {}
-	FWidgetControllerParams(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
-		: PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS)
-	{}
-
-	void SetParams(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
-	{
-		PlayerController = PC;
-		PlayerState = PS;
-		AbilitySystemComponent = ASC;
-		AttributeSet = AS;
-	}
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<APlayerController> PlayerController;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<APlayerState> PlayerState;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UAttributeSet> AttributeSet;
-};
 
 /**
  * 
@@ -52,33 +18,13 @@ class DM_API UDMUserWidget : public UUserWidget
 	
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetParentWidget(UDMUserWidget* ParentWidget);
-
-	UFUNCTION(BlueprintCallable)
-	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+	void SetWidgetController(UObject* InWidgetController);
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
-	void ParentSet();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void BroadcastInitialValues() {}
-	virtual void BindCallbacksToDependencies() {}
+	void WidgetControllerSet();
 
 protected:
-	UPROPERTY(BlueprintReadOnly, Category="Controller")
-	TObjectPtr<UDMUserWidget> Parent;
-
-	UPROPERTY(BlueprintReadOnly, Category="Controller")
-	TObjectPtr<APlayerController> PlayerController;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Controller")
-	TObjectPtr<APlayerState> PlayerState;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Controller")
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Controller")
-	TObjectPtr<UAttributeSet> AttributeSet;
-
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UObject> WidgetController;
 };
