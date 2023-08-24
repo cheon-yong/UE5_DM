@@ -2,10 +2,9 @@
 
 
 #include "Character/DMPlayer.h"
-#include "Actor/DMProjectile.h"
-#include "Animation/AnimInstance.h"
+#include "Gameframework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "Gameframework/CharacterMovementComponent.h"
 #include "Controller/DMPlayerState.h"
 #include "AbilitySystemComponent.h"
 #include "Controller/DMPlayerController.h"
@@ -13,28 +12,34 @@
 #include "UI/HUD/DMHUD.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 
+
+
 ADMPlayer::ADMPlayer()
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
+	PrimaryActorTick.bCanEverTick = true;
 
-	// Set size for collision capsule
-	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
+	GetCharacterMovement()->bConstrainToPlane = true;
+	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 
-	// Create a CameraComponent	
-	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
-	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
-	FirstPersonCameraComponent->SetRelativeLocation(FVector(-10.f, 0.f, 60.f)); // Position the camera
-	FirstPersonCameraComponent->bUsePawnControlRotation = true;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
 
-	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	Mesh1P->SetOnlyOwnerSee(true);
-	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
-	Mesh1P->bCastDynamicShadow = false;
-	Mesh1P->CastShadow = false;
-	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
-	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
+	CameraBoom->SetupAttachment(GetRootComponent());
+	CameraBoom->TargetArmLength = 750.f;
+	CameraBoom->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+	CameraBoom->bUsePawnControlRotation = false;
+	CameraBoom->bEnableCameraLag = true;
+	CameraBoom->bInheritPitch = false;
+	CameraBoom->bInheritRoll = false;
+	CameraBoom->bInheritYaw = false;
+
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>("Follow Camera");
+	FollowCamera->SetupAttachment(CameraBoom);
+	FollowCamera->bUsePawnControlRotation = false;
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)
@@ -43,6 +48,7 @@ void ADMPlayer::PossessedBy(AController* NewController)
 
 	// Server 시점
 	InitAbilityActorInfo();
+	AddCharacterAbilities();
 }
 
 void ADMPlayer::OnRep_PlayerState()
@@ -79,14 +85,4 @@ void ADMPlayer::InitAbilityActorInfo()
 	}
 
 	InitializeDefaultAttributes();
-}
-
-void ADMPlayer::SetHasRifle(bool bNewHasRifle)
-{
-	bHasRifle = bNewHasRifle;
-}
-
-bool ADMPlayer::GetHasRifle()
-{
-	return bHasRifle;
 }

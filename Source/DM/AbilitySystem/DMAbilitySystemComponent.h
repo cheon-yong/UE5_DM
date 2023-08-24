@@ -19,8 +19,14 @@ class DM_API UDMAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	void AbilityActorInfoSet();
 
-	void EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& ES, FActiveGameplayEffectHandle AGEH);
+	UFUNCTION(Client, Reliable)
+	void ClientEffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& ES, FActiveGameplayEffectHandle AGEH);
 
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>> StartupAbilities);
+
+	void AbilityInputTagHeld(const FGameplayTag& InputTag);
+
+	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 public:
 	FEffectAssetTags EffectAssetTags;
 };

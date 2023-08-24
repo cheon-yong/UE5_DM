@@ -1,18 +1,25 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Character/DMCharacter.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include <AbilitySystem/DMAttributeSet.h>
 #include <AbilitySystem/DMAbilitySystemComponent.h>
+#include "Components/CapsuleComponent.h"
+#include "DM/DM.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADMCharacter
 
 ADMCharacter::ADMCharacter()
 {
-	
+	PrimaryActorTick.bCanEverTick = true;
+
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
+	/*GetMesh()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
+	GetMesh()->SetGenerateOverlapEvents(true);*/
 
 }
 
@@ -21,6 +28,12 @@ void ADMCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+
+}
+
+void ADMCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 
 }
 
@@ -42,4 +55,13 @@ void ADMCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect
 
 	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+}
+
+void ADMCharacter::AddCharacterAbilities()
+{
+	UDMAbilitySystemComponent* DMASC = CastChecked<UDMAbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority())
+		return;
+
+	DMASC->AddCharacterAbilities(StartupAbilities);
 }

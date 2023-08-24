@@ -4,49 +4,72 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "GameplayTagContainer.h"
 #include "DMPlayerController.generated.h"
 
 /**
  * 
  */
+class UInputMappingContext;
+class UInputAction;
+class UDMInputConfig;
+class UDMAbilitySystemComponent;
+class USplineComponent;
+class IEnemyInterface;
+
 UCLASS()
 class DM_API ADMPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
-protected:
-	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* DefaultMappingContext;
 
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* JumpAction;
-
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* MoveAction;
-
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* LookAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* CrouchAction;
+	ADMPlayerController();
 
 protected:
 	virtual void BeginPlay() override;
-
 	virtual void SetupInputComponent() override;
+	virtual void PlayerTick(float DeltaTime) override;
 
-protected:
 	/** Called for movement input */
 	void Move(const struct FInputActionValue& Value);
 
-	void Jump();
+private:
+	void TickCursorTrace();
 
-	/** Called for looking input */
-	void Look(const struct FInputActionValue& Value);
+private:
+	/** MappingContext */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputMappingContext> DMContext;
 
-	void Crouch();
+	/** Move Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> MoveAction;
+
+	IEnemyInterface* TargetActor;
+
+public:
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UDMInputConfig> InputConfig;
+
+	UPROPERTY()
+	TObjectPtr<UDMAbilitySystemComponent> DMAbilitySystemComponent;
+
+	UDMAbilitySystemComponent* GetASC();
+
+	FVector CachedDestination = FVector::ZeroVector;
+	float FollowTime = 0.f;
+	float ShortPressThreshold = 0.5f;
+	bool bAutoRunning = false;
+	bool bTargeting = false;
+
+	UPROPERTY(EditDefaultsOnly)
+	float AutoRunAcceptanceRadius = 50.f;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
+
+	void AutoRun();
 };

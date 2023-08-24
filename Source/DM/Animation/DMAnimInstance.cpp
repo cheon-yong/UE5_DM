@@ -28,7 +28,7 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		GroundSpeed = UKismetMathLibrary::VSizeXY(Velocity);
 		
 		FRotator MoveRotator = Character->GetActorRotation();
-		Direction = CalculateDirection(Velocity, MoveRotator);
+		Direction = UKismetAnimationLibrary::CalculateDirection(Velocity, MoveRotator);
 		
 		FVector Acceleration = MovementComponent->GetCurrentAcceleration();
 		if (Acceleration != FVector::ZeroVector && GroundSpeed > 3.0f)

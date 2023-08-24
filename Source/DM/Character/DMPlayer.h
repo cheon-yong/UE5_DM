@@ -23,33 +23,13 @@ public:
 	virtual int32 GetPlayerLevel() override;
 
 private:
-	void InitAbilityActorInfo() override;
+	virtual void InitAbilityActorInfo() override;
 
 protected:
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	TObjectPtr<USkeletalMeshComponent> Mesh1P;
+	UPROPERTY(EditAnywhere, Category = "Camera")
+	TObjectPtr<class USpringArmComponent> CameraBoom;
 
-	/** First person camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UCameraComponent> FirstPersonCameraComponent;
-
-public:
-	/** Bool for AnimBP to switch to another animation set */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Weapon)
-	bool bHasRifle;
-
-	/** Setter to set the bool */
-	UFUNCTION(BlueprintCallable, Category = Weapon)
-	void SetHasRifle(bool bNewHasRifle);
-
-	/** Getter for the bool */
-	UFUNCTION(BlueprintCallable, Category = Weapon)
-	bool GetHasRifle();
-
-	/** Returns Mesh1P subobject **/
-	TObjectPtr<USkeletalMeshComponent> GetMesh1P() const { return Mesh1P; }
-	/** Returns FirstPersonCameraComponent subobject **/
-	TObjectPtr<UCameraComponent> GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+	UPROPERTY(EditAnywhere, Category = "Camera")
+	TObjectPtr<class UCameraComponent> FollowCamera;
 
 };

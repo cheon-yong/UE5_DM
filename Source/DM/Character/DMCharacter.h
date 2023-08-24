@@ -18,6 +18,7 @@ class USoundBase;
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
+class UGameplayAbility;
 
 UCLASS(config=Game)
 class ADMCharacter : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
@@ -32,6 +33,10 @@ protected:
 	virtual void BeginPlay();
 
 public:
+	virtual void Tick(float DeltaTime) override;
+
+
+
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
@@ -57,5 +62,11 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> DefaultSecondAttributes;
+
+public:
+	void AddCharacterAbilities();
+
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 };
 

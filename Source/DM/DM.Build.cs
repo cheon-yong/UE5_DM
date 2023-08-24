@@ -19,7 +19,8 @@ public class DM : ModuleRules
 			"GameplayAbilities", 
 			"GameplayTags", 
 			"GameplayTasks",
-			"UMG"
+			"UMG",
+			"NavigationSystem"
 		});
 
 		PrivateIncludePaths.AddRange(new string[]
