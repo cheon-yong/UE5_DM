@@ -14,6 +14,9 @@ ADMCharacter::ADMCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
+	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
+	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
@@ -64,4 +67,10 @@ void ADMCharacter::AddCharacterAbilities()
 		return;
 
 	DMASC->AddCharacterAbilities(StartupAbilities);
+}
+
+FVector ADMCharacter::GetCombatSocketLocation()
+{
+	check(Weapon);
+	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }

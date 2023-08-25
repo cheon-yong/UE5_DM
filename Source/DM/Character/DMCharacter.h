@@ -48,6 +48,9 @@ public:
 
 	virtual int32 GetPlayerLevel() { return 0; };
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	TObjectPtr<USkeletalMeshComponent> Weapon;
+
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
@@ -68,5 +71,10 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+
+	virtual FVector GetCombatSocketLocation() override;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName WeaponTipSocketName;
 };
 
