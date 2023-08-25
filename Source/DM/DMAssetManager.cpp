@@ -3,6 +3,7 @@
 
 #include "DMAssetManager.h"
 #include "DMGameplayTags.h"
+#include "AbilitySystemGlobals.h"
 
 UDMAssetManager& UDMAssetManager::Get()
 {
@@ -15,4 +16,6 @@ void UDMAssetManager::StartInitialLoading()
 	Super::StartInitialLoading();
 
 	FDMGameplayTags::InitializeNativeGameplayTags();
+
+	UAbilitySystemGlobals::Get().InitGlobalData();
 }
