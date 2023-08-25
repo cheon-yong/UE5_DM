@@ -10,9 +10,14 @@ void UDMProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	//UKismetSystemLibrary::PrintString(this, FString("ActivateAbility(C++)"), true, true, FLinearColor::Yellow, 3);
 	
-	const bool bIsServer = HasAuthority(&ActivationInfo);
+	
+}
+
+void UDMProjectileSpell::SpawnProjectile()
+{
+	//UKismetSystemLibrary::PrintString(this, FString("ActivateAbility(C++)"), true, true, FLinearColor::Yellow, 3);
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer)
 		return;
 
