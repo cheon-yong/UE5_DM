@@ -14,7 +14,7 @@ void UDMProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 	
 }
 
-void UDMProjectileSpell::SpawnProjectile()
+void UDMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
 	//UKismetSystemLibrary::PrintString(this, FString("ActivateAbility(C++)"), true, true, FLinearColor::Yellow, 3);
 	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
@@ -26,8 +26,15 @@ void UDMProjectileSpell::SpawnProjectile()
 	{
 		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
 
+		
+
+		FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+		Rotation.Pitch = 0.f;
+
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);
+		SpawnTransform.SetRotation(Rotation.Quaternion());
+
 
 		ADMProjectile* Projectile = GetWorld()->SpawnActorDeferred<ADMProjectile>(
 			ProjectileClass,

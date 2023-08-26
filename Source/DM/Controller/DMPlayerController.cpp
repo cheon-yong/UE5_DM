@@ -48,6 +48,9 @@ void ADMPlayerController::SetupInputComponent()
 
 	//Moving
 	DMInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADMPlayerController::Move);
+	DMInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &ADMPlayerController::ShiftPressed);
+	DMInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &ADMPlayerController::ShiftReleased);
+	
 	DMInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
@@ -135,19 +138,16 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	{
 		if (GetASC())
 		{
-			GetASC()->AbilityInputTagHeld(InputTag);
+			GetASC()->AbilityInputTagReleased(InputTag);
 		}
 		return;
 	}
-
-	if (bTargeting)
+	if (GetASC())
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
+		GetASC()->AbilityInputTagReleased(InputTag);
 	}
-	else
+
+	if (!bTargeting && !bShiftKeyDown)
 	{
 		APawn* ControllerPawn = GetPawn();
 
@@ -182,7 +182,7 @@ void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		return;
 	}
 
-	if (bTargeting)
+	if (bTargeting || bShiftKeyDown)
 	{
 		if (GetASC())
 		{
