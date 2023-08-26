@@ -10,6 +10,7 @@
  * 
  */
 class ADMProjectile;
+class UGameplayEffect;
 
 UCLASS()
 class DM_API UDMProjectileSpell : public UDMGameplayAbility
@@ -24,5 +25,9 @@ protected:
 	void SpawnProjectile(const FVector& ProjectileTargetLocation);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		TSubclassOf<ADMProjectile> ProjectileClass;
+	TSubclassOf<ADMProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
+
 };

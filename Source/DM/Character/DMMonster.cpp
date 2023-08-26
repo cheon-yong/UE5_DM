@@ -15,6 +15,8 @@ ADMMonster::ADMMonster()
 
 	AttributeSet = CreateDefaultSubobject<UDMAttributeSet>(TEXT("AttributeSet"));
 
+	HealthBar = CreateAbstractDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar->SetupAttachment(GetRootComponent());
 }
 
 void ADMMonster::BeginPlay()
@@ -24,6 +26,16 @@ void ADMMonster::BeginPlay()
 	UnHighlightActor();
 
 	InitAbilityActorInfo();
+
+	if (UDMUserWidget* DMUserWidget = Cast<UDMUserWidget>(HealthBar->GetUserWidgetObject()))
+	{
+		DMUserWidget->SetWidgetController(this);
+	}
+
+	if (const UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetHealth())
+	}
 }
 
 void ADMMonster::HighlightActor()

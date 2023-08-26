@@ -6,10 +6,13 @@
 #include "Character/DMCharacter.h"
 #include "../Interface/EnemyInterface.h"
 #include "DMMonster.generated.h"
+#include "UI/Controller/OverlayWidgetController.h"
 
 /**
  * 
  */
+class UWidgetComponent;
+
 UCLASS()
 class DM_API ADMMonster : public ADMCharacter, public IEnemyInterface
 {
@@ -26,10 +29,23 @@ public:
 
 	virtual int32 GetPlayerLevel() override { return Level; }
 
+	
+
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	bool bHighlighted = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character")
 	int32 Level = 1;
+
+public:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UWidgetComponent> HealthBar;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributeChangedSignature OnHealthChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributeChangedSignature OnMaxHealthChanged;
 };

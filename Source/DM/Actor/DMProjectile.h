@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayEffectTypes.h"
 #include "DMProjectile.generated.h"
 
 class USphereComponent;
 class UProjectileMovementComponent;
+class UNiagaraSystem;
 
 UCLASS()
 class ADMProjectile : public AActor
@@ -18,8 +20,8 @@ public:
 	ADMProjectile();
 
 protected:
-	UFUNCTION()
 	virtual void BeginPlay() override;
+	virtual void Destroyed() override;
 
 public:
 	UFUNCTION()
@@ -27,10 +29,30 @@ public:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
-	USphereComponent* Sphere;
+	TObjectPtr<USphereComponent> Sphere;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
-	UProjectileMovementComponent* ProjectileMovement;
+	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
+	UPROPERTY(EditDefaultsOnly)
+	float LifeSpan = 15.f;
+
+	bool bHit = false;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UNiagaraSystem> ImpactEffect;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USoundBase> ImpactSound;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USoundBase> LoopingSound;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAudioComponent> LoopingSoundComponent;
+
+public:
+	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+	FGameplayEffectSpecHandle DamageEffectSpecHandle;
 };
 

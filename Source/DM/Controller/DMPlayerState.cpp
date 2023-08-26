@@ -4,6 +4,7 @@
 #include "Controller/DMPlayerState.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 #include "AbilitySystem/DMAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 
 ADMPlayerState::ADMPlayerState()
 {
