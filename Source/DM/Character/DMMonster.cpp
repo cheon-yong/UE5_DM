@@ -34,7 +34,22 @@ void ADMMonster::BeginPlay()
 
 	if (const UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
 	{
-		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetHealth())
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetMaxHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+		OnHealthChanged.Broadcast(DMAS->GetHealth());
+		OnMaxHealthChanged.Broadcast(DMAS->GetMaxHealth());
 	}
 }
 

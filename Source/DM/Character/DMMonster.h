@@ -5,8 +5,9 @@
 #include "CoreMinimal.h"
 #include "Character/DMCharacter.h"
 #include "../Interface/EnemyInterface.h"
-#include "DMMonster.generated.h"
 #include "UI/Controller/OverlayWidgetController.h"
+#include "DMMonster.generated.h"
+
 
 /**
  * 
