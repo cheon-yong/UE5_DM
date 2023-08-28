@@ -21,7 +21,8 @@ public class DM : ModuleRules
 			"GameplayTasks",
 			"UMG",
 			"NavigationSystem",
-			"Niagara"
+			"Niagara",
+			"AIModule",
 		});
 
 		PrivateIncludePaths.AddRange(new string[]
