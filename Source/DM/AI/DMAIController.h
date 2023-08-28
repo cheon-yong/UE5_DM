@@ -21,6 +21,16 @@ public:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
+	static const FName HomePosKey;
+	static const FName PatrolPosKey;
+	static const FName TargetKey;
+
+	UFUNCTION(BlueprintCallable)
+	void RunAI();
+
+	UFUNCTION(BlueprintCallable)
+	void StopAI();
+
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "BehaviorTree")

@@ -2,11 +2,17 @@
 
 
 #include "AI/BTService_DetectPlayer.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "NavigationSystem.h"
+#include "DMAIController.h"
+#include "Character/DMPlayer.h"
 
 UBTService_DetectPlayer::UBTService_DetectPlayer()
 {
 	NodeName = TEXT("DetectPlayer");
-	Interval = TickInterval
+	Interval = TickInterval;
 }
 
 void UBTService_DetectPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
@@ -19,7 +25,7 @@ void UBTService_DetectPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8*
 
 	UWorld* World = ControllingPawn->GetWorld();
 	FVector Center = ControllingPawn->GetActorLocation();
-	float DetectRadius = 600.0f;
+	
 
 	if (nullptr == World)
 		return;
@@ -30,8 +36,26 @@ void UBTService_DetectPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8*
 		OverlapResults,
 		Center,
 		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel2,
+		ECollisionChannel::ECC_Pawn,
 		FCollisionShape::MakeSphere(DetectRadius),
 		CollisionQueryParam
 	);
+
+	if (bResult)
+	{
+		OwnerComp.GetBlackboardComponent()->SetValueAsObject(ADMAIController::TargetKey, nullptr);
+		for (auto const& OverlapResult : OverlapResults)
+		{
+			ADMPlayer* DMPlayer = Cast<ADMPlayer>(OverlapResult.GetActor());
+
+			if (DMPlayer && DMPlayer->GetController()->IsPlayerController())
+			{
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(ADMAIController::TargetKey, DMPlayer);
+				DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
+				DrawDebugPoint(World, DMPlayer->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
+				DrawDebugLine(World, ControllingPawn->GetActorLocation(), DMPlayer->GetActorLocation(), FColor::Blue, false, 0.2f);
+				return;
+			}
+		}
+	}
 }
