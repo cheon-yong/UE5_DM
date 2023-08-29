@@ -41,9 +41,9 @@ void UBTService_DetectPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8*
 		CollisionQueryParam
 	);
 
+	OwnerComp.GetBlackboardComponent()->SetValueAsObject(ADMAIController::TargetKey, nullptr);
 	if (bResult)
 	{
-		OwnerComp.GetBlackboardComponent()->SetValueAsObject(ADMAIController::TargetKey, nullptr);
 		for (auto const& OverlapResult : OverlapResults)
 		{
 			ADMPlayer* DMPlayer = Cast<ADMPlayer>(OverlapResult.GetActor());

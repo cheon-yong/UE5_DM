@@ -18,4 +18,7 @@ public:
 	UBTTask_TurnToTarget();
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	
+protected:
+	UPROPERTY(EditAnywhere)
+	float TurnSpeed = 5.f;
 };
