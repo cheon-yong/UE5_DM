@@ -47,6 +47,8 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
+DECLARE_MULTICAST_DELEGATE(FOnHealthIsZero);
+
 /**
  * 
  */
@@ -97,6 +99,8 @@ public:
 
 	UFUNCTION()
 	void OnRep_CriticalDamage(const FGameplayAttributeData& OldValue) const;
+
+	FOnHealthIsZero OnHealthIsZero;
 	
 public:
 	// Vital Attributes

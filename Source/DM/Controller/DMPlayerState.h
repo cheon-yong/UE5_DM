@@ -14,6 +14,17 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 
+
+
+UENUM(BlueprintType)
+enum class ECharacterState : uint8
+{
+	Living,
+	Dead,
+};
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnChangeCharacterState, const ECharacterState);
+
 UCLASS()
 class DM_API ADMPlayerState : public APlayerState, public IAbilitySystemInterface
 {
@@ -29,6 +40,14 @@ public:
 
 	int32 GetPlayerLevel() { return Level; }
 
+	ECharacterState GetCharacterState() { return CharacterState; }
+
+	void SetCharacterState(ECharacterState NewState);
+
+	UFUNCTION()
+	void OnReq_Level(int32 OldLevel);
+
+	FOnChangeCharacterState OnChangeCharacterState;
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
@@ -39,6 +58,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnReq_Level)
 	int32 Level = 1;
 
-	UFUNCTION()
-	void OnReq_Level(int32 OldLevel);
+	UPROPERTY()
+	ECharacterState CharacterState;
 };

@@ -4,6 +4,7 @@
 
 #include "Animation/DMAnimInstance.h"
 #include "Character/DMCharacter.h"
+#include "Controller/DMPlayerState.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "AnimGraphRuntime/Public/KismetAnimationLibrary.h"
@@ -14,12 +15,36 @@ void UDMAnimInstance::NativeInitializeAnimation()
 
 	Character = Cast<ACharacter>(TryGetPawnOwner());
 	if (Character)
+	{
 		MovementComponent = Character->GetCharacterMovement();
+	}
 }
 
 void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
+
+	if (bIsDead)
+	{
+		return;
+	}
+		
+	// TODO 수정해야할 듯
+	if (ADMCharacter* DMCharacter = Cast<ADMCharacter>(Character))
+	{
+		if (ADMPlayerState* DMPlayerState = Character->GetPlayerState<ADMPlayerState>())
+		{
+			switch (DMPlayerState->GetCharacterState())
+			{
+				case ECharacterState::Living:
+					bIsDead = false;
+					break;
+				case ECharacterState::Dead:
+					bIsDead = true;
+					break;
+			}
+		}
+	}
 
 	if (MovementComponent)
 	{

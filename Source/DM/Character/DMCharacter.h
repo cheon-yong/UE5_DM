@@ -25,7 +25,6 @@ class ADMCharacter : public ACharacter, public IAbilitySystemInterface, public I
 {
 	GENERATED_BODY()
 
-
 public:
 	ADMCharacter();
 
@@ -34,8 +33,6 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
-
-
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }

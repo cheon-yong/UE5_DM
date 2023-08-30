@@ -75,16 +75,20 @@ void UDMAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 	SetEffectProperties(Data, Props);
 	// TODO
 	
-
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 		UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health : %f"), *Props.TargetAvatarActor->GetName(), GetHealth());
+		if (GetHealth() == 0)
+		{
+			OnHealthIsZero.Broadcast();
+		}
 	}
-		
 
 	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	}
 }
 
 void UDMAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props)
