@@ -30,8 +30,6 @@ public:
 
 	virtual int32 GetPlayerLevel() override { return Level; }
 
-	
-
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	bool bHighlighted = false;

@@ -27,6 +27,8 @@ void ADMMonster::BeginPlay()
 
 	InitAbilityActorInfo();
 
+	AddCharacterAbilities();
+
 	if (UDMUserWidget* DMUserWidget = Cast<UDMUserWidget>(HealthBar->GetUserWidgetObject()))
 	{
 		DMUserWidget->SetWidgetController(this);

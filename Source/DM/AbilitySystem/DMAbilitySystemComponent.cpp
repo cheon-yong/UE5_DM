@@ -12,7 +12,7 @@ void UDMAbilitySystemComponent::AbilityActorInfoSet()
 
 void UDMAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& ES, FActiveGameplayEffectHandle AGEH)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString("Effect Applied"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString("Effect Applied"));
 
 	FGameplayTagContainer TagContainer;
 	ES.GetAllAssetTags(OUT TagContainer);

@@ -15,6 +15,22 @@ class DM_API UDMGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable)
+	void ApplyEffect(AActor* OtherActor);
+
+	UFUNCTION(BlueprintCallable)
+	AActor* CheckRange();
+
+public:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	FGameplayTag StartupInputTag;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
+
+	UPROPERTY(EditAnywhere)
+	float AbilityRange = 20.f;
+
+	UPROPERTY(EditAnywhere)
+	float AbilityRadius = 20.f;
 };

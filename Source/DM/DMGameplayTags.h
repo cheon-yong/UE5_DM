@@ -30,6 +30,8 @@ public:
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
 
+	FGameplayTag Monster_Attack_Default;
+
 private:
 	static FDMGameplayTags GameplayTags;
 };

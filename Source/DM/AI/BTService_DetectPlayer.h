@@ -19,11 +19,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere)
-	float TickInterval = 1.0f;
-
-	UPROPERTY(EditAnywhere)
 	float DetectRadius = 600.0f;
-
 
 protected:
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;

@@ -78,4 +78,10 @@ void FDMGameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.4"),
 		FString("Input Tag for 4 key")
 	);
+
+	// Monster
+	GameplayTags.Monster_Attack_Default = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Monster.Attack.Default"),
+		FString("Monster.Attack.Default")
+	);
 }
