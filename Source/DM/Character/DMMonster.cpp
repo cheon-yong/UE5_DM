@@ -6,6 +6,7 @@
 #include "AbilitySystem/DMAttributeSet.h"
 #include "Components/WidgetComponent.h"
 #include "UI/Widget/DMUserWidget.h"
+#include "Game/DMGameMode.h"
 
 ADMMonster::ADMMonster()
 {
@@ -51,9 +52,10 @@ void ADMMonster::BeginPlay()
 		);
 
 		DMAS->OnHealthIsZero.AddLambda(
-			[this]()
+			[this](TObjectPtr<AActor> Actor)
 			{
 				SetCharacterState(ECharacterState::Dead);
+				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->AddScore(Actor);
 			}
 		);
 

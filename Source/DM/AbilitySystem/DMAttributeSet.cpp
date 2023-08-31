@@ -81,7 +81,7 @@ void UDMAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health : %f"), *Props.TargetAvatarActor->GetName(), GetHealth());
 		if (GetHealth() == 0)
 		{
-			OnHealthIsZero.Broadcast();
+			OnHealthIsZero.Broadcast(Props.TargetAvatarActor);
 		}
 	}
 

@@ -12,6 +12,7 @@
 #include "UI/HUD/DMHUD.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 #include "AbilitySystem/DMAttributeSet.h"
+#include "Game/DMGameMode.h"
 
 
 
@@ -80,9 +81,10 @@ void ADMPlayer::InitAbilityActorInfo()
 	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
 	{
 		DMAS->OnHealthIsZero.AddLambda(
-			[this]()
+			[this](TObjectPtr<AActor> Actor)
 			{
 				SetCharacterState(ECharacterState::Dead);
+				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->SetGameState(EGameState::Fail);
 			}
 		);
 	}

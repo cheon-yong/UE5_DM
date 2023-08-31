@@ -11,7 +11,7 @@ ADMGameStateBase::ADMGameStateBase()
 
 int32 ADMGameStateBase::GetTotalGameScore() const
 {
-	return int32();
+	return TotalGameScore;
 }
 
 void ADMGameStateBase::AddGameScore()

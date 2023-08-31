@@ -4,6 +4,7 @@
 #include "Character/DMCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Game/DMGameStateBase.h"
+#include "Controller/DMPlayerController.h"
 
 ADMGameMode::ADMGameMode()
 {
@@ -25,17 +26,35 @@ void ADMGameMode::PostLogin(APlayerController* NewPlayer)
 	
 }
 
-
-
-void ADMGameMode::AddScore(ADMPlayerController* ScoredPlayer)
+void ADMGameMode::AddScore(AActor* ScoredPlayer)
 {
 	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
 	{
 		DMGameState->AddGameScore();
+
+		int32 NowScore = DMGameState->GetTotalGameScore();
+		OnUpdateScore.Broadcast(NowScore);
+		if (NowScore >= ScoreToClear)
+		{
+			DMGameState->SetGameState(EGameState::Clear);
+		}
+	}
+}
+
+void ADMGameMode::SetGameState(EGameState NewState)
+{
+	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
+	{
+		DMGameState->SetGameState(NewState);
 	}
 }
 
 int32 ADMGameMode::GetScore() const
 {
-	return int32();
+	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
+	{
+		return DMGameState->GetTotalGameScore();
+	}
+
+	return 0;
 }

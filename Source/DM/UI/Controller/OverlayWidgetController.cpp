@@ -4,6 +4,7 @@
 #include "UI/Controller/OverlayWidgetController.h"
 #include "AbilitySystem/DMAttributeSet.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
+#include "Game/DMGameMode.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {
@@ -73,4 +74,5 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 			}
 		}
 	);
+
 }

@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Game/DMGameStateBase.h"
 #include "DMGameMode.generated.h"
 
 class ADMPlayerController;
-class ADMGameStateBase;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateScore, int32, Score);
 
 UCLASS(minimalapi)
 class ADMGameMode : public AGameModeBase
@@ -19,8 +21,14 @@ public:
 
 	virtual void PostInitializeComponents() override;
 	virtual void PostLogin(APlayerController* NewPlayer) override;
-	void AddScore(class ADMPlayerController* ScoredPlayer);
+	void AddScore(class AActor* ScoredPlayer);
+	void SetGameState(EGameState NewState);
+
+	UFUNCTION(BlueprintCallable)
 	int32 GetScore() const;	
+
+	UPROPERTY(BlueprintAssignable)
+	FOnUpdateScore OnUpdateScore;
 
 protected:
 

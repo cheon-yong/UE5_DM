@@ -47,7 +47,7 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
-DECLARE_MULTICAST_DELEGATE(FOnHealthIsZero);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnHealthIsZero, TObjectPtr<AActor>);
 
 /**
  * 
