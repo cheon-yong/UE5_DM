@@ -6,6 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "DMGameMode.generated.h"
 
+class ADMPlayerController;
+class ADMGameStateBase;
+
 UCLASS(minimalapi)
 class ADMGameMode : public AGameModeBase
 {
@@ -13,6 +16,16 @@ class ADMGameMode : public AGameModeBase
 
 public:
 	ADMGameMode();
+
+	virtual void PostInitializeComponents() override;
+	virtual void PostLogin(APlayerController* NewPlayer) override;
+	void AddScore(class ADMPlayerController* ScoredPlayer);
+	int32 GetScore() const;	
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 ScoreToClear = 0;
 };
 
 

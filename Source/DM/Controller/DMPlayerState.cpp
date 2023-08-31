@@ -22,7 +22,6 @@ ADMPlayerState::ADMPlayerState()
 			[this]()
 			{
 				SetCharacterState(ECharacterState::Dead);
-				UE_LOG(LogTemp, Warning, TEXT("Player Dead"));
 			}
 		);
 	}
