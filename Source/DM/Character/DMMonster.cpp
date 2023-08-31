@@ -34,7 +34,7 @@ void ADMMonster::BeginPlay()
 		DMUserWidget->SetWidgetController(this);
 	}
 
-	if (const UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
+	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetHealthAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
@@ -47,6 +47,13 @@ void ADMMonster::BeginPlay()
 			[this](const FOnAttributeChangeData& Data)
 			{
 				OnMaxHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+		DMAS->OnHealthIsZero.AddLambda(
+			[this]()
+			{
+				SetCharacterState(ECharacterState::Dead);
 			}
 		);
 
@@ -78,4 +85,9 @@ void ADMMonster::InitAbilityActorInfo()
 	Cast<UDMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 
 	InitializeDefaultAttributes();
+}
+
+void ADMMonster::SetCharacterState(ECharacterState NewState)
+{
+	Super::SetCharacterState(NewState);
 }

@@ -28,6 +28,8 @@ public:
 
 	virtual void InitAbilityActorInfo() override;
 
+	virtual void SetCharacterState(ECharacterState NewState) override;
+
 	virtual int32 GetPlayerLevel() override { return Level; }
 
 protected:
@@ -38,7 +40,6 @@ protected:
 	int32 Level = 1;
 
 public:
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
 

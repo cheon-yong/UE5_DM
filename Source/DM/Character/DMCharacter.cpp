@@ -23,7 +23,6 @@ ADMCharacter::ADMCharacter()
 
 	GetMesh()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
 	GetMesh()->SetGenerateOverlapEvents(true);
-
 }
 
 void ADMCharacter::BeginPlay()
@@ -31,7 +30,7 @@ void ADMCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-
+	CharacterState = ECharacterState::Living;
 }
 
 void ADMCharacter::Tick(float DeltaTime)
@@ -58,6 +57,12 @@ void ADMCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect
 
 	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+}
+
+void ADMCharacter::SetCharacterState(ECharacterState NewState)
+{
+	CharacterState = NewState;
+	OnChangeCharacterState.Broadcast(CharacterState);
 }
 
 void ADMCharacter::AddCharacterAbilities()

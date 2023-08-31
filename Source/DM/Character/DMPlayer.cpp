@@ -11,6 +11,7 @@
 #include "Controller/DMPlayerState.h"
 #include "UI/HUD/DMHUD.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
+#include "AbilitySystem/DMAttributeSet.h"
 
 
 
@@ -76,6 +77,16 @@ void ADMPlayer::InitAbilityActorInfo()
 	Cast<UDMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet = DMPlayerState->GetAttributeSet();
 
+	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
+	{
+		DMAS->OnHealthIsZero.AddLambda(
+			[this]()
+			{
+				SetCharacterState(ECharacterState::Dead);
+			}
+		);
+	}
+
 	if (ADMPlayerController* DMPlayerController = Cast<ADMPlayerController>(GetController()))
 	{
 		if (ADMHUD* DMHUD = Cast<ADMHUD>(DMPlayerController->GetHUD()))
@@ -85,4 +96,22 @@ void ADMPlayer::InitAbilityActorInfo()
 	}
 
 	InitializeDefaultAttributes();
+}
+
+void ADMPlayer::SetCharacterState(ECharacterState NewState)
+{
+	Super::SetCharacterState(NewState);
+
+	ADMPlayerController* DMController = Cast<ADMPlayerController>(GetController());
+	switch (CharacterState)
+	{
+	case ECharacterState::Living:
+		DMController->EnableInput(DMController);
+		break;
+	case ECharacterState::Dead:
+		DMController->DisableInput(DMController);
+		break;
+	default:
+		break;
+	}
 }

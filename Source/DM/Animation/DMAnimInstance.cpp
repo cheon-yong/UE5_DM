@@ -3,7 +3,6 @@
 
 
 #include "Animation/DMAnimInstance.h"
-#include "Character/DMCharacter.h"
 #include "Controller/DMPlayerState.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -17,6 +16,8 @@ void UDMAnimInstance::NativeInitializeAnimation()
 	if (Character)
 	{
 		MovementComponent = Character->GetCharacterMovement();
+		
+		
 	}
 }
 
@@ -28,23 +29,12 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		return;
 	}
-		
-	// TODO 수정해야할 듯
+
 	if (ADMCharacter* DMCharacter = Cast<ADMCharacter>(Character))
 	{
-		if (ADMPlayerState* DMPlayerState = Character->GetPlayerState<ADMPlayerState>())
-		{
-			switch (DMPlayerState->GetCharacterState())
-			{
-				case ECharacterState::Living:
-					bIsDead = false;
-					break;
-				case ECharacterState::Dead:
-					bIsDead = true;
-					break;
-			}
-		}
+		bIsDead = DMCharacter->GetCharacterState() == ECharacterState::Dead ? true : false;
 	}
+
 
 	if (MovementComponent)
 	{
@@ -67,5 +57,19 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 		bIsCrouching = Character->bIsCrouched;
 		bIsFalling = MovementComponent->IsFalling();
+	}
+}
+
+void UDMAnimInstance::SetCharacterState(ECharacterState CharacterState)
+{
+	UE_LOG(LogTemp, Warning, TEXT("SetCharacterState in AnimInstance"));
+	switch (CharacterState)
+	{
+	case ECharacterState::Living:
+		bIsDead = false;
+		break;
+	case ECharacterState::Dead:
+		bIsDead = true;
+		break;
 	}
 }

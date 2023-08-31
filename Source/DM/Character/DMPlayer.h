@@ -25,6 +25,8 @@ public:
 private:
 	virtual void InitAbilityActorInfo() override;
 
+	virtual void SetCharacterState(ECharacterState NewState) override;
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<class USpringArmComponent> CameraBoom;

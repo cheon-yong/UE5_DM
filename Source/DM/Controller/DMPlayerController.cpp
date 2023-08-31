@@ -20,7 +20,6 @@
 ADMPlayerController::ADMPlayerController()
 {
 	bReplicates = true;
-
 	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
@@ -37,25 +36,6 @@ void ADMPlayerController::BeginPlay()
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
-
-
-	if (ADMPlayerState* DMPlayerState = GetPlayerState<ADMPlayerState>())
-	{
-		DMPlayerState->OnChangeCharacterState.AddLambda(
-			[this](const ECharacterState CharacterState)
-			{
-				switch (CharacterState)
-				{
-					case ECharacterState::Living :
-						EnableInput(this);
-						break;
-					case ECharacterState::Dead :
-						DisableInput(this);
-						break;
-				}
-			}
-		);
-	}
 
 }
 

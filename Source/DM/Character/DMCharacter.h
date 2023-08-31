@@ -20,6 +20,17 @@ class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
 
+
+
+UENUM(BlueprintType)
+enum class ECharacterState : uint8
+{
+	Living,
+	Dead,
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnChangeCharacterState, const ECharacterState, CharacterState);
+
 UCLASS(config=Game)
 class ADMCharacter : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
@@ -35,6 +46,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
+	
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	virtual void InitAbilityActorInfo() {}
@@ -44,6 +56,14 @@ public:
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
 
 	virtual int32 GetPlayerLevel() { return 0; };
+
+	ECharacterState GetCharacterState() { return CharacterState; }
+
+	virtual void SetCharacterState(ECharacterState NewState);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnChangeCharacterState OnChangeCharacterState;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
@@ -62,6 +82,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> DefaultSecondAttributes;
+
+	UPROPERTY(BlueprintReadOnly)
+	ECharacterState CharacterState;
 
 public:
 	void AddCharacterAbilities();
