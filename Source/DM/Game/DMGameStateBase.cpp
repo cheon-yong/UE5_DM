@@ -21,6 +21,9 @@ void ADMGameStateBase::AddGameScore()
 
 void ADMGameStateBase::SetGameState(EGameState NewState)
 {
+	if (GameState == NewState)
+		return;
+
 	GameState = NewState;
 }
 

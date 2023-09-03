@@ -61,6 +61,9 @@ void ADMCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect
 
 void ADMCharacter::SetCharacterState(ECharacterState NewState)
 {
+	if (CharacterState == NewState)
+		return;
+
 	CharacterState = NewState;
 	OnChangeCharacterState.Broadcast(CharacterState);
 }

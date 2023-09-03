@@ -45,7 +45,11 @@ void ADMGameMode::SetGameState(EGameState NewState)
 {
 	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
 	{
+		if (DMGameState->GetGameState() == NewState)
+			return;
+
 		DMGameState->SetGameState(NewState);
+		OnChangeGameState.Broadcast(NewState);
 	}
 }
 

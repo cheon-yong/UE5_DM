@@ -16,6 +16,7 @@ enum class EGameState : uint8
 };
 
 
+
 /**
  * 
  */
@@ -32,6 +33,7 @@ public:
 	void AddGameScore();
 
 	void SetGameState(EGameState NewState);
+	EGameState GetGameState() { return GameState; };
 	bool IsGameCleared() const;
 
 private:

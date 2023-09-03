@@ -12,6 +12,7 @@ class UAbilitySystemComponent;
 class UOverlayWidgetController;
 struct FWidgetControllerParams;
 class UAttributeMenuWidgetController;
+class UIntroWidgetController;
 
 /**
  * 
@@ -30,6 +31,7 @@ public:
 
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
+	UIntroWidgetController* GetIntroWidgetController(const FWidgetControllerParams& WCParams);
 
 public:
 	UPROPERTY()
@@ -37,6 +39,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDMUserWidget> OverlayWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UDMUserWidget> IntroWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UDMUserWidget> IntroWidgetClass;
 
 	UPROPERTY()
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
@@ -49,4 +57,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
+
+	UPROPERTY()
+	TObjectPtr<UIntroWidgetController> IntroWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UIntroWidgetController> IntroWidgetControllerClass;
 };

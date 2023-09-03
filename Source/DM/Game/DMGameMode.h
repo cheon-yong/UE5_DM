@@ -10,6 +10,7 @@
 class ADMPlayerController;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateScore, int32, Score);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnChangeGameState, EGameState, NewState);
 
 UCLASS(minimalapi)
 class ADMGameMode : public AGameModeBase
@@ -29,6 +30,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnUpdateScore OnUpdateScore;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnChangeGameState OnChangeGameState;
 
 protected:
 

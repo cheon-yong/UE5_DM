@@ -28,6 +28,7 @@ public:
 
 	virtual void InitAbilityActorInfo() override;
 
+	UFUNCTION(BlueprintCallable)
 	virtual void SetCharacterState(ECharacterState NewState) override;
 
 	virtual int32 GetPlayerLevel() override { return Level; }

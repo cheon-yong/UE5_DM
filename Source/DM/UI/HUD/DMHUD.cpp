@@ -5,6 +5,7 @@
 #include "UI/Widget/DMUserWidget.h"
 #include "UI/Controller/OverlayWidgetController.h"
 #include "UI/Controller/AttributeMenuWidgetController.h"
+#include "UI/Controller/IntroWidgetController.h"
 
 void ADMHUD::BeginPlay()
 {
@@ -38,6 +39,18 @@ UAttributeMenuWidgetController* ADMHUD::GetAttributeMenuWidgetController(const F
 	return AttributeMenuWidgetController;
 }
 
+UIntroWidgetController* ADMHUD::GetIntroWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (IntroWidgetController == nullptr)
+	{
+		IntroWidgetController = NewObject<UIntroWidgetController>(this, IntroWidgetControllerClass);
+		IntroWidgetController->SetWidgetControllerParams(WCParams);
+		IntroWidgetController->BindCallbacksToDependencies();
+	}
+
+	return IntroWidgetController;
+
+}
 
 
 void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
@@ -45,16 +58,19 @@ void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystem
 	check(OverlayWidgetClass);
 	check(OverlayWidgetControllerClass);
 
-	// Widget
-	UDMUserWidget* Widget = CreateWidget<UDMUserWidget>(GetWorld(), OverlayWidgetClass);
-	Widget->AddToViewport();
-	OverlayWidget = Widget;
+	// OverlayWidget
+	OverlayWidget = CreateWidget<UDMUserWidget>(GetWorld(), OverlayWidgetClass);
+	OverlayWidget->AddToViewport();
+	//OverlayWidget = Widget;
+
+	// IntroWidget
+	IntroWidget = CreateWidget<UDMUserWidget>(GetWorld(), IntroWidgetClass);
+	IntroWidget->AddToViewport();
+	
 
 	// WidgetController
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
-
 	OverlayWidget->SetWidgetController(WidgetController);
-
 	WidgetController->BroadcastInitialValues();
 }

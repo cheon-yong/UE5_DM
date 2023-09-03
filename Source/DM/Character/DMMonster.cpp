@@ -6,6 +6,7 @@
 #include "AbilitySystem/DMAttributeSet.h"
 #include "Components/WidgetComponent.h"
 #include "UI/Widget/DMUserWidget.h"
+#include "Components/CapsuleComponent.h"
 #include "Game/DMGameMode.h"
 
 ADMMonster::ADMMonster()
@@ -55,6 +56,7 @@ void ADMMonster::BeginPlay()
 			[this](TObjectPtr<AActor> Actor)
 			{
 				SetCharacterState(ECharacterState::Dead);
+				GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->AddScore(Actor);
 			}
 		);
