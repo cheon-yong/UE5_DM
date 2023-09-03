@@ -22,6 +22,7 @@ public:
 
 	virtual void PostInitializeComponents() override;
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+	virtual void BeginPlay() override;
 	void AddScore(class AActor* ScoredPlayer);
 	void SetGameState(EGameState NewState);
 

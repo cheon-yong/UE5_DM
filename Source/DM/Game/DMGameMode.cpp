@@ -9,8 +9,8 @@
 ADMGameMode::ADMGameMode()
 {
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter"));
-	DefaultPawnClass = PlayerPawnClassFinder.Class;
+	/*static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter"));
+	DefaultPawnClass = PlayerPawnClassFinder.Class;*/
 
 }
 
@@ -26,6 +26,13 @@ void ADMGameMode::PostLogin(APlayerController* NewPlayer)
 	
 }
 
+void ADMGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	SetGameState(EGameState::Ready);
+}
+
+
 void ADMGameMode::AddScore(AActor* ScoredPlayer)
 {
 	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
@@ -36,7 +43,7 @@ void ADMGameMode::AddScore(AActor* ScoredPlayer)
 		OnUpdateScore.Broadcast(NowScore);
 		if (NowScore >= ScoreToClear)
 		{
-			DMGameState->SetGameState(EGameState::Clear);
+			SetGameState(EGameState::Clear);
 		}
 	}
 }

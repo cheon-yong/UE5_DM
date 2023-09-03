@@ -93,7 +93,7 @@ void ADMPlayer::InitAbilityActorInfo()
 	{
 		if (ADMHUD* DMHUD = Cast<ADMHUD>(DMPlayerController->GetHUD()))
 		{
-			DMHUD->InitOverlay(DMPlayerController, DMPlayerState, AbilitySystemComponent, AttributeSet);
+			DMHUD->InitHUD(DMPlayerController, DMPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
 

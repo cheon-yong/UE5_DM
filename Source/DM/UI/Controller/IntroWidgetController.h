@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/Controller/DMWidgetController.h"
+#include "Game/DMGameStateBase.h"
 #include "IntroWidgetController.generated.h"
 
 /**
@@ -14,7 +15,17 @@ class DM_API UIntroWidgetController : public UDMWidgetController
 {
 	GENERATED_BODY()
 	
+	
 public:
 	virtual void BroadcastInitialValues() override;
 	virtual void BindCallbacksToDependencies() override;
+
+	UFUNCTION()
+	void AttachOrDetachWidget(EGameState GameState);
+
+	UFUNCTION(BlueprintCallable)
+	void OnClickGameStartButton();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClickGameExitButton();
 };
