@@ -36,6 +36,7 @@ void ADMPlayerController::BeginPlay()
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+	
 
 }
 
@@ -135,26 +136,14 @@ void ADMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
 	//GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
-	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_LMB) == false)
-	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
-		return;
-	}
-	if (GetASC())
-	{
-		GetASC()->AbilityInputTagReleased(InputTag);
-	}
 
-	if (!bTargeting && !bShiftKeyDown)
+	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
 		APawn* ControllerPawn = GetPawn();
 
 		if (FollowTime <= ShortPressThreshold && ControllerPawn)
 		{
-			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControllerPawn->GetActorLocation(), CachedDestination)) 
+			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControllerPawn->GetActorLocation(), CachedDestination))
 			{
 				Spline->ClearSplinePoints();
 				for (const FVector& PointLoc : NavPath->PathPoints)
@@ -169,28 +158,23 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		FollowTime = 0.f;
 		bTargeting = false;
 	}
+
+
+	else 
+	{
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagReleased(InputTag);
+		}
+		return;
+	}
 }
 
 void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
 	//GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
-	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_LMB) == false)
-	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
-		return;
-	}
 
-	if (bTargeting || bShiftKeyDown)
-	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
-	}
-	else
+	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
 
@@ -206,6 +190,15 @@ void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 			ControlledPawn->AddMovementInput(WorldDirection);
 		}
 	}
+	else
+	{
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);
+		}
+		return;
+	}
+
 }
 
 UDMAbilitySystemComponent* ADMPlayerController::GetASC()
