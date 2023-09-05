@@ -2,6 +2,8 @@
 
 #include "Game/DMGameMode.h"
 #include "Character/DMCharacter.h"
+#include "Character/DMMonster.h"
+#include "AbilitySystem/DMAttributeSet.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Game/DMGameStateBase.h"
 #include "Controller/DMPlayerController.h"
@@ -30,6 +32,8 @@ void ADMGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	SetGameState(EGameState::Ready);
+
+	GetWorldTimerManager().SetTimer(SpawnActorHandle, this, &ADMGameMode::SpawnActor, 5.0f, true, 5.0f);
 }
 
 
@@ -68,4 +72,32 @@ int32 ADMGameMode::GetScore() const
 	}
 
 	return 0;
+}
+
+void ADMGameMode::SpawnActor()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, "Spawn Actor");
+	if (DMMonsterClass != nullptr)
+	{
+		FVector Location = FVector::Zero();
+		Location.X = FMath::FRandRange(200.f, 2500.f);
+		Location.Y = FMath::FRandRange(200.f, 2500.f);
+		Location.Z = 88.0f;
+		FActorSpawnParameters ActorSpawnParameters;
+
+		TObjectPtr<ADMMonster> Monster = GetWorld()->SpawnActor<ADMMonster>(DMMonsterClass, Location, FRotator::ZeroRotator, ActorSpawnParameters);
+		if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(Monster->GetAttributeSet()))
+		{
+			DMAS->OnHealthIsZero.AddLambda(
+				[this](FEffectProperties* Props)
+				{
+					Monsters.Remove(Props->TargetAvatarActor->GetName());
+					OnUpdateMonster.Broadcast(Monsters.Num());
+				}
+			); 
+		}
+
+		Monsters.Add(Monster->GetName(), Monster);
+		OnUpdateMonster.Broadcast(Monsters.Num());
+	}
 }

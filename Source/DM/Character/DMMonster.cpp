@@ -53,11 +53,11 @@ void ADMMonster::BeginPlay()
 		);
 
 		DMAS->OnHealthIsZero.AddLambda(
-			[this](TObjectPtr<AActor> Actor)
+			[this](FEffectProperties* Props)
 			{
 				SetCharacterState(ECharacterState::Dead);
 				GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->AddScore(Actor);
+				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->AddScore(Props->SourceAvatarActor);
 			}
 		);
 

@@ -8,8 +8,10 @@
 #include "DMGameMode.generated.h"
 
 class ADMPlayerController;
+class ADMMonster;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateScore, int32, Score);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateMonster, int32, MonsterCount);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnChangeGameState, EGameState, NewState);
 
 UCLASS(minimalapi)
@@ -35,10 +37,22 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnChangeGameState OnChangeGameState;
 
-protected:
+	UPROPERTY(BlueprintAssignable)
+	FOnUpdateMonster OnUpdateMonster;
 
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 ScoreToClear = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<ADMMonster> DMMonsterClass;
+
+	FTimerHandle SpawnActorHandle;
+
+	TMap<FString, TObjectPtr<ADMMonster>> Monsters;
+
+	void SpawnActor();
+
 };
 
 

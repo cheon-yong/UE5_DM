@@ -81,7 +81,7 @@ void ADMPlayer::InitAbilityActorInfo()
 	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
 	{
 		DMAS->OnHealthIsZero.AddLambda(
-			[this](TObjectPtr<AActor> Actor)
+			[this](FEffectProperties* Props)
 			{
 				SetCharacterState(ECharacterState::Dead);
 				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->SetGameState(EGameState::Fail);

@@ -78,10 +78,10 @@ void UDMAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
-		UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health : %f"), *Props.TargetAvatarActor->GetName(), GetHealth());
+		UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s by %s, Health : %f"), *Props.TargetAvatarActor->GetName(),*Props.SourceAvatarActor->GetName() ,GetHealth());
 		if (GetHealth() == 0)
 		{
-			OnHealthIsZero.Broadcast(Props.TargetAvatarActor);
+			OnHealthIsZero.Broadcast(&Props);
 		}
 	}
 
