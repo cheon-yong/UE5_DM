@@ -10,9 +10,9 @@
 #include "Controller/DMPlayerController.h"
 #include "Controller/DMPlayerState.h"
 #include "UI/HUD/DMHUD.h"
+#include "Game/DMGameMode.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 #include "AbilitySystem/DMAttributeSet.h"
-#include "Game/DMGameMode.h"
 
 
 
@@ -43,6 +43,14 @@ ADMPlayer::ADMPlayer()
 	FollowCamera->SetupAttachment(CameraBoom);
 	FollowCamera->bUsePawnControlRotation = false;
 
+}
+
+void ADMPlayer::BeginPlay()
+{
+	if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		DMGameMode->OnChangeGameState.AddDynamic(this, );
+	}
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)
@@ -121,6 +129,21 @@ void ADMPlayer::SetCharacterState(ECharacterState NewState)
 		DMController->DisableInput(DMController);
 		break;
 	default:
+		break;
+	}
+}
+
+void ADMPlayer::SetGameState(EGameState NewState)
+{
+	switch (NewState)
+	{
+	case EGameState::Ready:
+		break;
+	case EGameState::Playing:
+		break;
+	case EGameState::Fail:
+		break;
+	case EGameState::Clear:
 		break;
 	}
 }

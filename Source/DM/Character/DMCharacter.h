@@ -40,7 +40,7 @@ public:
 	ADMCharacter();
 
 protected:
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
 
 public:
 	virtual void Tick(float DeltaTime) override;

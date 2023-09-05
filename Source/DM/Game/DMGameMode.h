@@ -28,6 +28,8 @@ public:
 	void AddScore(class AActor* ScoredPlayer);
 	void SetGameState(EGameState NewState);
 
+	virtual void RestartPlayer(AController* NewPlayer) override;
+
 	UFUNCTION(BlueprintCallable)
 	int32 GetScore() const;	
 
@@ -55,5 +57,5 @@ protected:
 
 private:
 	UFUNCTION()
-	void SetSpawnActorTimer(EGameState NewState);
+	void SetGameMode(EGameState NewState);
 };

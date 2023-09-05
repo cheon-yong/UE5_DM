@@ -36,7 +36,7 @@ void ADMGameMode::BeginPlay()
 	GetWorldTimerManager().SetTimer(SpawnActorHandle, this, &ADMGameMode::SpawnActor, 5.0f, true, 5.0f);
 	GetWorldTimerManager().PauseTimer(SpawnActorHandle);
 
-	OnChangeGameState.AddDynamic(this, &ADMGameMode::SetSpawnActorTimer);
+	OnChangeGameState.AddDynamic(this, &ADMGameMode::SetGameMode);
 }
 
 
@@ -65,6 +65,12 @@ void ADMGameMode::SetGameState(EGameState NewState)
 		DMGameState->SetGameState(NewState);
 		OnChangeGameState.Broadcast(NewState);
 	}
+}
+
+void ADMGameMode::RestartPlayer(AController* NewPlayer)
+{
+	Super::RestartPlayer(NewPlayer);
+
 }
 
 int32 ADMGameMode::GetScore() const
@@ -105,21 +111,29 @@ void ADMGameMode::SpawnActor()
 	}
 }
 
-void ADMGameMode::SetSpawnActorTimer(EGameState NewState)
+void ADMGameMode::SetGameMode(EGameState NewState)
 {
 	switch (NewState)
 	{
 	case EGameState::Ready:
+	{
 		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
 		break;
+	}
 	case EGameState::Playing:
+	{
 		GetWorldTimerManager().UnPauseTimer(SpawnActorHandle);
 		break;
+	}
 	case EGameState::Fail:
+	{
 		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
 		break;
+	}
 	case EGameState::Clear:
+	{
 		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
 		break;
+	}
 	}
 }

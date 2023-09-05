@@ -62,7 +62,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDMUserWidget> GameOverWidgetClass;
 
-
 	UPROPERTY()
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 
