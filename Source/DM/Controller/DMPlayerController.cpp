@@ -34,10 +34,15 @@ void ADMPlayerController::BeginPlay()
 		Subsystem->AddMappingContext(DMContext, 0);
 	}
 
+	if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMPlayerController::SetControllerInputMode);
+	}
+
+	
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
-	
-
+	SetInputMode(UIInputMode);
 }
 
 void ADMPlayerController::SetupInputComponent()
@@ -159,7 +164,6 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		bTargeting = false;
 	}
 
-
 	else 
 	{
 		if (GetASC())
@@ -226,5 +230,25 @@ void ADMPlayerController::AutoRun()
 		{
 			bAutoRunning = false;
 		}
+	}
+}
+
+void ADMPlayerController::SetControllerInputMode(EGameState GameState)
+{
+	GameInputMode.SetConsumeCaptureMouseDown(false);
+	switch (GameState)
+	{
+	case EGameState::Ready:
+		SetInputMode(UIInputMode);
+		break;
+	case EGameState::Playing:
+		SetInputMode(GameInputMode);
+		break;
+	case EGameState::Fail:
+		SetInputMode(UIInputMode);
+		break;
+	case EGameState::Clear:
+		SetInputMode(UIInputMode);
+		break;
 	}
 }

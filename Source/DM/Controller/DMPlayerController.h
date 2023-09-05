@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayTagContainer.h"
+#include "Game/DMGameMode.h"
 #include "DMPlayerController.generated.h"
 
 /**
@@ -51,19 +52,21 @@ public:
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 
+	UDMAbilitySystemComponent* GetASC();
+
+	void AutoRun();
+
+	void ShiftPressed() { bShiftKeyDown = true; }
+	void ShiftReleased() { bShiftKeyDown = false; }
+
+	UFUNCTION()
+	void SetControllerInputMode(EGameState GameState);
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UDMInputConfig> InputConfig;
 
 	UPROPERTY()
 	TObjectPtr<UDMAbilitySystemComponent> DMAbilitySystemComponent;
-
-	UDMAbilitySystemComponent* GetASC();
-
-	FVector CachedDestination = FVector::ZeroVector;
-	float FollowTime = 0.f;
-	float ShortPressThreshold = 0.5f;
-	bool bAutoRunning = false;
-	bool bTargeting = false;
 
 	UPROPERTY(EditDefaultsOnly)
 	float AutoRunAcceptanceRadius = 50.f;
@@ -71,12 +74,18 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
 
-	void AutoRun();
-
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> ShiftAction;
 
-	void ShiftPressed() { bShiftKeyDown = true; }
-	void ShiftReleased() { bShiftKeyDown = false; }
+
+	FVector CachedDestination = FVector::ZeroVector;
+	float FollowTime = 0.f;
+	float ShortPressThreshold = 0.5f;
+	bool bAutoRunning = false;
+	bool bTargeting = false;
 	bool bShiftKeyDown = false;
+	
+private:
+	FInputModeGameOnly GameInputMode;
+	FInputModeUIOnly UIInputMode;
 };
