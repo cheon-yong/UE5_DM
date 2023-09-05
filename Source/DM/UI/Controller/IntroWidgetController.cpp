@@ -2,9 +2,7 @@
 
 
 #include "UI/Controller/IntroWidgetController.h"
-#include "Kismet/KismetSystemLibrary.h"
-#include "UI/HUD/DMHUD.h"
-#include "UI/Widget/DMUserWidget.h"
+#include "Game/DMGameMode.h"
 
 void UIntroWidgetController::BroadcastInitialValues()
 {

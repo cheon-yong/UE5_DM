@@ -43,7 +43,6 @@ ADMPlayer::ADMPlayer()
 	FollowCamera->SetupAttachment(CameraBoom);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)

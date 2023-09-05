@@ -7,6 +7,7 @@
 #include "UI/Controller/OverlayWidgetController.h"
 #include "UI/Controller/AttributeMenuWidgetController.h"
 #include "UI/Controller/IntroWidgetController.h"
+#include "UI/Controller/GameOverWidgetController.h"
 
 void ADMHUD::BeginPlay()
 {
@@ -57,6 +58,17 @@ UIntroWidgetController* ADMHUD::GetIntroWidgetController(const FWidgetController
 	return IntroWidgetController;
 }
 
+UGameOverWidgetController* ADMHUD::GetGameOverWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (GameOverWidgetController == nullptr)
+	{
+		GameOverWidgetController = NewObject<UGameOverWidgetController>(this, GameOverWidgetControllerClass);
+		GameOverWidgetController->SetWidgetControllerParams(WCParams);
+		GameOverWidgetController->BindCallbacksToDependencies();
+	}
+
+	return GameOverWidgetController;
+}
 
 void ADMHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
@@ -87,10 +99,24 @@ void ADMHUD::InitIntro(APlayerController* PC, APlayerState* PS, UAbilitySystemCo
 	WidgetController->BroadcastInitialValues();
 }
 
+void ADMHUD::InitGameOver(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+{
+	// GameOverWidget
+	GameOverWidget = CreateWidget<UDMUserWidget>(GetWorld(), GameOverWidgetClass);
+	GameOverWidget->AddToViewport();
+
+	// WidgetController
+	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+	UGameOverWidgetController* WidgetController = GetGameOverWidgetController(WidgetControllerParams);
+	GameOverWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
+}
+
 void ADMHUD::InitHUD(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	InitOverlay(PC, PS, ASC, AS);
 	InitIntro(PC, PS, ASC, AS);
+	InitGameOver(PC, PS, ASC, AS);
 }
 
 void ADMHUD::SetWidgets(EGameState NewState)
@@ -101,18 +127,25 @@ void ADMHUD::SetWidgets(EGameState NewState)
 	{
 		IntroWidget->SetVisibility(ESlateVisibility::Visible);
 		OverlayWidget->SetVisibility(ESlateVisibility::Hidden);
+		GameOverWidget->SetVisibility(ESlateVisibility::Hidden);
 		break;
 	}
 	case EGameState::Playing:
 	{
 		IntroWidget->SetVisibility(ESlateVisibility::Hidden);
 		OverlayWidget->SetVisibility(ESlateVisibility::Visible);
+		GameOverWidget->SetVisibility(ESlateVisibility::Hidden);
 		break;
 	}
-
 	case EGameState::Clear:
+		IntroWidget->SetVisibility(ESlateVisibility::Hidden);
+		OverlayWidget->SetVisibility(ESlateVisibility::Hidden);
+		GameOverWidget->SetVisibility(ESlateVisibility::Visible);
 		break;
 	case EGameState::Fail:
+		IntroWidget->SetVisibility(ESlateVisibility::Hidden);
+		OverlayWidget->SetVisibility(ESlateVisibility::Hidden);
+		GameOverWidget->SetVisibility(ESlateVisibility::Visible);
 		break;
 	}
 }

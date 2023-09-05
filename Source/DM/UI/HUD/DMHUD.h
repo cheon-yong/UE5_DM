@@ -14,6 +14,7 @@ class UOverlayWidgetController;
 struct FWidgetControllerParams;
 class UAttributeMenuWidgetController;
 class UIntroWidgetController;
+class UGameOverWidgetController;
 
 /**
  * 
@@ -30,6 +31,7 @@ protected:
 public:
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 	void InitIntro(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+	void InitGameOver(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 	void InitHUD(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 
 	UFUNCTION()
@@ -38,6 +40,8 @@ public:
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
 	UIntroWidgetController* GetIntroWidgetController(const FWidgetControllerParams& WCParams);
+	UGameOverWidgetController* GetGameOverWidgetController(const FWidgetControllerParams& WCParams);
+
 
 public:
 	UPROPERTY()
@@ -51,6 +55,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDMUserWidget> IntroWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UDMUserWidget> GameOverWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UDMUserWidget> GameOverWidgetClass;
+
 
 	UPROPERTY()
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
@@ -69,4 +80,11 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UIntroWidgetController> IntroWidgetControllerClass;
+
+	UPROPERTY()
+	TObjectPtr<UGameOverWidgetController> GameOverWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UGameOverWidgetController> GameOverWidgetControllerClass;
+
 };
