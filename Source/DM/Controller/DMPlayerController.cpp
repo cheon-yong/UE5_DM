@@ -21,6 +21,7 @@ ADMPlayerController::ADMPlayerController()
 {
 	bReplicates = true;
 	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
+	
 }
 
 void ADMPlayerController::BeginPlay()

@@ -42,6 +42,8 @@ ADMPlayer::ADMPlayer()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>("Follow Camera");
 	FollowCamera->SetupAttachment(CameraBoom);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)
@@ -78,7 +80,8 @@ void ADMPlayer::InitAbilityActorInfo()
 	Cast<UDMAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet = DMPlayerState->GetAttributeSet();
 
-	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
+	UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet);
+	if (DMAS != nullptr)
 	{
 		DMAS->OnHealthIsZero.AddLambda(
 			[this](FEffectProperties* Props)
@@ -98,6 +101,11 @@ void ADMPlayer::InitAbilityActorInfo()
 	}
 
 	InitializeDefaultAttributes();
+
+	if (DMAS != nullptr)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = DMAS->GetMoveSpeed();
+	}
 }
 
 void ADMPlayer::SetCharacterState(ECharacterState NewState)

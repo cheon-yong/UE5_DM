@@ -23,6 +23,7 @@ ADMCharacter::ADMCharacter()
 
 	GetMesh()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
 	GetMesh()->SetGenerateOverlapEvents(true);
+	
 }
 
 void ADMCharacter::BeginPlay()

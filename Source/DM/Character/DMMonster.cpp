@@ -7,6 +7,7 @@
 #include "Components/WidgetComponent.h"
 #include "UI/Widget/DMUserWidget.h"
 #include "Components/CapsuleComponent.h"
+#include "Gameframework/CharacterMovementComponent.h"
 #include "Game/DMGameMode.h"
 
 ADMMonster::ADMMonster()
@@ -19,6 +20,7 @@ ADMMonster::ADMMonster()
 
 	HealthBar = CreateAbstractDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
+
 }
 
 void ADMMonster::BeginPlay()
@@ -38,6 +40,9 @@ void ADMMonster::BeginPlay()
 
 	if (UDMAttributeSet* DMAS = Cast<UDMAttributeSet>(AttributeSet))
 	{
+		// 임시
+		GetCharacterMovement()->MaxWalkSpeed = 200;
+
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(DMAS->GetHealthAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
 			{
