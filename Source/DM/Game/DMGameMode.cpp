@@ -34,6 +34,9 @@ void ADMGameMode::BeginPlay()
 	SetGameState(EGameState::Ready);
 
 	GetWorldTimerManager().SetTimer(SpawnActorHandle, this, &ADMGameMode::SpawnActor, 5.0f, true, 5.0f);
+	GetWorldTimerManager().PauseTimer(SpawnActorHandle);
+
+	OnChangeGameState.AddDynamic(this, &ADMGameMode::SetSpawnActorTimer);
 }
 
 
@@ -99,5 +102,24 @@ void ADMGameMode::SpawnActor()
 
 		Monsters.Add(Monster->GetName(), Monster);
 		OnUpdateMonster.Broadcast(Monsters.Num());
+	}
+}
+
+void ADMGameMode::SetSpawnActorTimer(EGameState NewState)
+{
+	switch (NewState)
+	{
+	case EGameState::Ready:
+		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
+		break;
+	case EGameState::Playing:
+		GetWorldTimerManager().UnPauseTimer(SpawnActorHandle);
+		break;
+	case EGameState::Fail:
+		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
+		break;
+	case EGameState::Clear:
+		GetWorldTimerManager().PauseTimer(SpawnActorHandle);
+		break;
 	}
 }

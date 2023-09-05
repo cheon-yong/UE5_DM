@@ -3,6 +3,7 @@
 
 #include "UI/HUD/DMHUD.h"
 #include "UI/Widget/DMUserWidget.h"
+#include "Game/DMGameMode.h"
 #include "UI/Controller/OverlayWidgetController.h"
 #include "UI/Controller/AttributeMenuWidgetController.h"
 #include "UI/Controller/IntroWidgetController.h"
@@ -11,7 +12,12 @@ void ADMHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMHUD::SetWidgets);
+	}
+
+	SetWidgets(EGameState::Ready);
 }
 
 UOverlayWidgetController* ADMHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
@@ -85,4 +91,28 @@ void ADMHUD::InitHUD(APlayerController* PC, APlayerState* PS, UAbilitySystemComp
 {
 	InitOverlay(PC, PS, ASC, AS);
 	InitIntro(PC, PS, ASC, AS);
+}
+
+void ADMHUD::SetWidgets(EGameState NewState)
+{
+	switch (NewState)
+	{
+	case EGameState::Ready:
+	{
+		IntroWidget->SetVisibility(ESlateVisibility::Visible);
+		OverlayWidget->SetVisibility(ESlateVisibility::Hidden);
+		break;
+	}
+	case EGameState::Playing:
+	{
+		IntroWidget->SetVisibility(ESlateVisibility::Hidden);
+		OverlayWidget->SetVisibility(ESlateVisibility::Visible);
+		break;
+	}
+
+	case EGameState::Clear:
+		break;
+	case EGameState::Fail:
+		break;
+	}
 }

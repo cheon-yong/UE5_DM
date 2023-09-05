@@ -53,7 +53,7 @@ protected:
 
 	void SpawnActor();
 
+private:
+	UFUNCTION()
+	void SetSpawnActorTimer(EGameState NewState);
 };
-
-
-

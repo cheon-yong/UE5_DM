@@ -20,9 +20,6 @@ public:
 	virtual void BroadcastInitialValues() override;
 	virtual void BindCallbacksToDependencies() override;
 
-	UFUNCTION()
-	void AttachOrDetachWidget(EGameState GameState);
-
 	UFUNCTION(BlueprintCallable)
 	void OnClickGameStartButton();
 
