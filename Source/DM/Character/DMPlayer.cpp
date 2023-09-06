@@ -47,6 +47,7 @@ ADMPlayer::ADMPlayer()
 
 void ADMPlayer::BeginPlay()
 {
+	Super::BeginPlay();
 	if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
 	{
 		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMPlayer::SetGameState);
