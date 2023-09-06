@@ -62,4 +62,7 @@ protected:
 private:
 	UFUNCTION()
 	void SetGameMode(EGameState NewState);
+
+	UFUNCTION()
+	void ClearMonsters();
 };

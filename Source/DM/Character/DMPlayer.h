@@ -35,11 +35,14 @@ private:
 	UFUNCTION()
 	void SetGameState(EGameState NewState);
 
+	FVector InitPosition;
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<class USpringArmComponent> CameraBoom;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<class UCameraComponent> FollowCamera;
+
 
 };

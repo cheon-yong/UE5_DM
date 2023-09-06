@@ -125,6 +125,7 @@ void ADMGameMode::SetGameMode(EGameState NewState)
 	case EGameState::Playing:
 	{
 		GetWorldTimerManager().UnPauseTimer(SpawnActorHandle);
+		ClearMonsters();
 		break;
 	}
 	case EGameState::Fail:
@@ -138,4 +139,16 @@ void ADMGameMode::SetGameMode(EGameState NewState)
 		break;
 	}
 	}
+}
+
+void ADMGameMode::ClearMonsters()
+{
+	for (auto It = Monsters.CreateIterator(); It; ++It)
+	{
+		TObjectPtr<ADMMonster> Monster = It->Value;
+		Monster->Destroy();
+	}
+
+	Monsters.Reset();
+	OnUpdateMonster.Broadcast(Monsters.Num());
 }

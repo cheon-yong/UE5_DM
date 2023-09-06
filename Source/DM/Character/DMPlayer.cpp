@@ -53,6 +53,8 @@ void ADMPlayer::BeginPlay()
 		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMPlayer::SetGameState);
 	}
 	SetCharacterState(ECharacterState::Living);
+
+	InitPosition = GetActorLocation();
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)
@@ -152,6 +154,7 @@ void ADMPlayer::SetGameState(EGameState NewState)
 	{
 		InitializeDefaultAttributes();
 		SetCharacterState(ECharacterState::Living);
+		SetActorLocation(InitPosition);
 		break;
 	}
 	case EGameState::Fail:
