@@ -8,6 +8,7 @@
 #include "DMGameMode.generated.h"
 
 class ADMPlayerController;
+class ADMPlayer;
 class ADMMonster;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateScore, int32, Score);
@@ -45,6 +46,9 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 ScoreToClear = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<ADMPlayer> DMPlayerClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ADMMonster> DMMonsterClass;

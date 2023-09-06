@@ -24,11 +24,15 @@ public:
 
 	virtual int32 GetPlayerLevel() override;
 
+protected:
+	virtual void Destroyed() override;
+
 private:
 	virtual void InitAbilityActorInfo() override;
 
 	virtual void SetCharacterState(ECharacterState NewState) override;
 
+	UFUNCTION()
 	void SetGameState(EGameState NewState);
 
 protected:

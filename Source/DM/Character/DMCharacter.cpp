@@ -69,6 +69,12 @@ void ADMCharacter::SetCharacterState(ECharacterState NewState)
 	OnChangeCharacterState.Broadcast(CharacterState);
 }
 
+void ADMCharacter::Destroyed()
+{
+	Super::Destroy();
+
+}
+
 void ADMCharacter::AddCharacterAbilities()
 {
 	UDMAbilitySystemComponent* DMASC = CastChecked<UDMAbilitySystemComponent>(AbilitySystemComponent);

@@ -52,6 +52,7 @@ void ADMPlayer::BeginPlay()
 	{
 		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMPlayer::SetGameState);
 	}
+	SetCharacterState(ECharacterState::Living);
 }
 
 void ADMPlayer::PossessedBy(AController* NewController)
@@ -69,6 +70,11 @@ void ADMPlayer::OnRep_PlayerState()
 
 	// Client 시점
 	InitAbilityActorInfo();
+}
+
+void ADMPlayer::Destroyed()
+{
+	
 }
 
 int32 ADMPlayer::GetPlayerLevel()
@@ -120,17 +126,19 @@ void ADMPlayer::SetCharacterState(ECharacterState NewState)
 {
 	Super::SetCharacterState(NewState);
 
-	ADMPlayerController* DMController = Cast<ADMPlayerController>(GetController());
-	switch (CharacterState)
+	if (ADMPlayerController* DMController = Cast<ADMPlayerController>(GetController()))
 	{
-	case ECharacterState::Living:
-		DMController->EnableInput(DMController);
-		break;
-	case ECharacterState::Dead:
-		DMController->DisableInput(DMController);
-		break;
-	default:
-		break;
+		switch (CharacterState)
+		{
+		case ECharacterState::Living:
+			DMController->EnableInput(DMController);
+			break;
+		case ECharacterState::Dead:
+			DMController->DisableInput(DMController);
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -141,7 +149,11 @@ void ADMPlayer::SetGameState(EGameState NewState)
 	case EGameState::Ready:
 		break;
 	case EGameState::Playing:
+	{
+		InitializeDefaultAttributes();
+		SetCharacterState(ECharacterState::Living);
 		break;
+	}
 	case EGameState::Fail:
 		break;
 	case EGameState::Clear:

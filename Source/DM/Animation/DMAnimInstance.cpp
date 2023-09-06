@@ -23,16 +23,15 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	if (bIsDead)
-	{
-		return;
-	}
-
 	if (ADMCharacter* DMCharacter = Cast<ADMCharacter>(Character))
 	{
 		bIsDead = DMCharacter->GetCharacterState() == ECharacterState::Dead ? true : false;
 	}
 
+	if (bIsDead)
+	{
+		return;
+	}
 
 	if (MovementComponent)
 	{
