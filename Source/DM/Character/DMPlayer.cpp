@@ -49,7 +49,7 @@ void ADMPlayer::BeginPlay()
 {
 	if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		DMGameMode->OnChangeGameState.AddDynamic(this, );
+		DMGameMode->OnChangeGameState.AddDynamic(this, &ADMPlayer::SetGameState);
 	}
 }
 

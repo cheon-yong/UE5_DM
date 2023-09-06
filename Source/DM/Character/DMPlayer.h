@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/DMCharacter.h"
+#include "Game/DMGameMode.h"
 #include "DMPlayer.generated.h"
 
 /**

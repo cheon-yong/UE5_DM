@@ -16,8 +16,6 @@ void UDMAnimInstance::NativeInitializeAnimation()
 	if (Character)
 	{
 		MovementComponent = Character->GetCharacterMovement();
-		
-		
 	}
 }
 

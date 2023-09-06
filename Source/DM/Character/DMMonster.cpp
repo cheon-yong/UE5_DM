@@ -18,7 +18,7 @@ ADMMonster::ADMMonster()
 
 	AttributeSet = CreateDefaultSubobject<UDMAttributeSet>(TEXT("AttributeSet"));
 
-	HealthBar = CreateAbstractDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
 
 }
