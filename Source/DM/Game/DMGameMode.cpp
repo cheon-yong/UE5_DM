@@ -42,15 +42,14 @@ void ADMGameMode::BeginPlay()
 }
 
 
-void ADMGameMode::AddScore(AActor* ScoredPlayer)
+void ADMGameMode::SetScore(class AActor* ScoredPlayer, int32 NewScore)
 {
 	if (ADMGameStateBase* DMGameState = Cast<ADMGameStateBase>(GameState))
 	{
-		DMGameState->AddGameScore();
+		DMGameState->SetGameScore(NewScore);
 
-		int32 NowScore = DMGameState->GetTotalGameScore();
-		OnUpdateScore.Broadcast(NowScore);
-		if (NowScore >= ScoreToClear)
+		OnUpdateScore.Broadcast(NewScore);
+		if (NewScore >= ScoreToClear)
 		{
 			SetGameState(EGameState::Clear);
 		}
@@ -126,6 +125,7 @@ void ADMGameMode::SetGameMode(EGameState NewState)
 	{
 		GetWorldTimerManager().UnPauseTimer(SpawnActorHandle);
 		ClearMonsters();
+		SetScore(nullptr, 0);
 		break;
 	}
 	case EGameState::Fail:

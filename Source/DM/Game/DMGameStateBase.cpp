@@ -14,9 +14,9 @@ int32 ADMGameStateBase::GetTotalGameScore() const
 	return TotalGameScore;
 }
 
-void ADMGameStateBase::AddGameScore()
+void ADMGameStateBase::SetGameScore(int32 NewScore)
 {
-	TotalGameScore++;
+	TotalGameScore = NewScore;
 }
 
 void ADMGameStateBase::SetGameState(EGameState NewState)

@@ -28,7 +28,7 @@ public:
 
 public:
 	int32 GetTotalGameScore() const;
-	void AddGameScore();
+	void SetGameScore(int32 NewScore);
 
 	void SetGameState(EGameState NewState);
 	EGameState GetGameState() { return GameState; };

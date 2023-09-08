@@ -62,7 +62,11 @@ void ADMMonster::BeginPlay()
 			{
 				SetCharacterState(ECharacterState::Dead);
 				GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-				Cast<ADMGameMode>(GetWorld()->GetAuthGameMode())->AddScore(Props->SourceAvatarActor);
+				if (ADMGameMode* DMGameMode = Cast<ADMGameMode>(GetWorld()->GetAuthGameMode()))
+				{
+					int32 NewScore = DMGameMode->GetScore() + 1;
+					DMGameMode->SetScore(Props->SourceAvatarActor, NewScore);
+				}
 			}
 		);
 
