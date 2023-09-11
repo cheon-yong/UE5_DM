@@ -9,7 +9,9 @@
 #include "InputActionValue.h"
 #include "../Interface/EnemyInterface.h"
 #include "Input/DMInputComponent.h"
+#include "Character/DMPlayer.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "Animation/DMAnimInstance.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystem/DMAbilitySystemComponent.h"
 #include "Components/SplineComponent.h"
@@ -146,7 +148,7 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
 		APawn* ControllerPawn = GetPawn();
-
+		
 		if (FollowTime <= ShortPressThreshold && ControllerPawn)
 		{
 			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControllerPawn->GetActorLocation(), CachedDestination))
@@ -222,6 +224,13 @@ void ADMPlayerController::AutoRun()
 
 	if (APawn* ControlledPawn = GetPawn())
 	{
+		if (ADMPlayer* DMPlayer = Cast<ADMPlayer>(ControlledPawn))
+		{
+			auto AnimInstance = DMPlayer->GetMesh()->GetAnimInstance();
+			AnimInstance->StopAllMontages(0.25);
+
+		}
+
 		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
 		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
 		ControlledPawn->AddMovementInput(Direction);
