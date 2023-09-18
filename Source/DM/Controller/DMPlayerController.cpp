@@ -18,6 +18,7 @@
 #include "DMGameplayTags.h"
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
+#include "AbilitySystem/Abilities/DMGameplayAbility.h"
 
 ADMPlayerController::ADMPlayerController()
 {
@@ -134,21 +135,23 @@ void ADMPlayerController::TickCursorTrace()
 void ADMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
 	//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("ASD"));
 	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_LMB))
 	{
 		bTargeting = (TargetActor != nullptr) ? true : false;
 		bAutoRunning = false;
 	}
-}
-
-void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
-{
-	//GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
-
-	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
+	else if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
+		if (ActivatingAbility != nullptr)
+		{
+			ActivatingAbility->EndAbilityByController();
+			ActivatingAbility = nullptr;
+			return;
+		}
+
 		APawn* ControllerPawn = GetPawn();
-		
+
 		if (FollowTime <= ShortPressThreshold && ControllerPawn)
 		{
 			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControllerPawn->GetActorLocation(), CachedDestination))
@@ -166,7 +169,33 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		FollowTime = 0.f;
 		bTargeting = false;
 	}
+}
 
+void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	//GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
+
+	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
+	{
+		/*APawn* ControllerPawn = GetPawn();
+		
+		if (FollowTime <= ShortPressThreshold && ControllerPawn)
+		{
+			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControllerPawn->GetActorLocation(), CachedDestination))
+			{
+				Spline->ClearSplinePoints();
+				for (const FVector& PointLoc : NavPath->PathPoints)
+				{
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+					DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 1.f);
+				}
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				bAutoRunning = true;
+			}
+		}
+		FollowTime = 0.f;
+		bTargeting = false;*/
+	}
 	else 
 	{
 		if (GetASC())
@@ -181,6 +210,7 @@ void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
 	//GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
 
+	// 우클릭 처리
 	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
@@ -205,7 +235,11 @@ void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		}
 		return;
 	}
+}
 
+void ADMPlayerController::SetActivatingAbility(UDMGameplayAbility* Ability)
+{
+	ActivatingAbility = Ability;
 }
 
 UDMAbilitySystemComponent* ADMPlayerController::GetASC()

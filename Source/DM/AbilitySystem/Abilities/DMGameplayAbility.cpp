@@ -41,3 +41,12 @@ AActor* UDMGameplayAbility::CheckRange()
 
 	return HitResult.GetActor();
 }
+
+void UDMGameplayAbility::EndAbilityByController()
+{
+	EndAbility(GetCurrentAbilitySpecHandle(),
+		GetCurrentActorInfo(),
+		GetCurrentActivationInfo(),
+		true,
+		false);
+}

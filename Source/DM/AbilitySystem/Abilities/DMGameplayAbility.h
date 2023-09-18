@@ -21,6 +21,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	AActor* CheckRange();
 
+	void EndAbilityByController();
+
 public:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	FGameplayTag StartupInputTag;

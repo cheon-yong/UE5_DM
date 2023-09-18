@@ -11,12 +11,14 @@
 /**
  * 
  */
+class UDMGameplayAbility;
 class UInputMappingContext;
 class UInputAction;
 class UDMInputConfig;
 class UDMAbilitySystemComponent;
 class USplineComponent;
 class IEnemyInterface;
+
 
 UCLASS()
 class DM_API ADMPlayerController : public APlayerController
@@ -51,6 +53,12 @@ public:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UFUNCTION(BlueprintCallable)
+	void SetActivatingAbility(UDMGameplayAbility* Ability);
+
+	UFUNCTION(BlueprintCallable)
+	UDMGameplayAbility* GetActivatingAbility() { return ActivatingAbility; }
 
 	UDMAbilitySystemComponent* GetASC();
 
@@ -88,4 +96,6 @@ public:
 private:
 	FInputModeGameOnly GameInputMode;
 	FInputModeUIOnly UIInputMode;
+
+	TObjectPtr<UDMGameplayAbility> ActivatingAbility;
 };
