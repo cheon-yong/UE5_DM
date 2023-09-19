@@ -21,6 +21,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	AActor* CheckRange();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ContinueAbility();
 	void EndAbilityByController();
 
 public:

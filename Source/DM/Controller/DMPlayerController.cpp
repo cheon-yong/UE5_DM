@@ -140,21 +140,11 @@ void ADMPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 		bTargeting = (TargetActor != nullptr) ? true : false;
 		bAutoRunning = false;
 	}
-	else if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
-	{
-		/*if (ActivatingAbility != nullptr)
-		{
-			ActivatingAbility->EndAbilityByController();
-			ActivatingAbility = nullptr;
-			return;
-		}*/
-	}
 }
 
 void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
 	//GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
-	UE_LOG(LogTemp, Error, TEXT("Released"));
 	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
 		if (ActivatingAbility != nullptr)
@@ -184,6 +174,15 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		FollowTime = 0.f;
 		bTargeting = false;
 		UE_LOG(LogTemp, Error, TEXT("Released Moving"));
+	}
+	else if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_LMB))
+	{
+		if (ActivatingAbility != nullptr)
+		{
+			ActivatingAbility->ContinueAbility();
+			ActivatingAbility = nullptr;
+			return;
+		}
 	}
 	else 
 	{
@@ -221,6 +220,11 @@ void ADMPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	}
 	else
 	{
+		if (ActivatingAbility != nullptr)
+		{
+			return;
+		}
+
 		if (GetASC())
 		{
 			GetASC()->AbilityInputTagHeld(InputTag);
