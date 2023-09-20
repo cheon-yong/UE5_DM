@@ -79,6 +79,17 @@ void FDMGameplayTags::InitializeNativeGameplayTags()
 		FString("Input Tag for 4 key")
 	);
 
+	// Event
+	GameplayTags.Event_Montage_Projectile = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Event.Montage.Projectile"),
+		FString("Create Projectile")
+	);
+
+	GameplayTags.Event_Montage_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Event.Montage.Attack"),
+		FString("Attack")
+	);
+
 	// Monster
 	GameplayTags.Monster_Attack_Default = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Monster.Attack.Default"),

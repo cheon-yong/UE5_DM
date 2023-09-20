@@ -18,11 +18,10 @@ class DM_API UDMProjectileSpell : public UDMGameplayAbility
 	GENERATED_BODY()
 
 protected:
-
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile")
-	void SpawnProjectile(const FVector& ProjectileTargetLocation);
+	void SpawnProjectile(const FVector& ProjectileTargetLocation, bool Shooting = true);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ADMProjectile> ProjectileClass;

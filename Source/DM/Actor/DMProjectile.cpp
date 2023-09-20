@@ -49,7 +49,8 @@ void ADMProjectile::Destroyed()
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-		LoopingSoundComponent->Stop();
+		if (LoopingSoundComponent->GetSound() != nullptr)
+			LoopingSoundComponent->Stop();
 	}
 
 	Super::Destroyed();
@@ -59,7 +60,8 @@ void ADMProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-	LoopingSoundComponent->Stop();
+	if (LoopingSoundComponent->GetSound() != nullptr)
+		LoopingSoundComponent->Stop();
 
 	if (HasAuthority())
 	{

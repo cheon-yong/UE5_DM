@@ -16,7 +16,7 @@ void UDMProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 	
 }
 
-void UDMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
+void UDMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation, bool Shooting)
 {
 	//UKismetSystemLibrary::PrintString(this, FString("ActivateAbility(C++)"), true, true, FLinearColor::Yellow, 3);
 	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
@@ -32,7 +32,14 @@ void UDMProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation
 		Rotation.Pitch = 0.f;
 
 		FTransform SpawnTransform;
-		SpawnTransform.SetLocation(SocketLocation);
+		if (Shooting)
+		{
+			SpawnTransform.SetLocation(SocketLocation);
+		}
+		else
+		{
+			SpawnTransform.SetLocation(ProjectileTargetLocation);
+		}
 		SpawnTransform.SetRotation(Rotation.Quaternion());
 
 

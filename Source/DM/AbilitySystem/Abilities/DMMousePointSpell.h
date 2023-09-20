@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Abilities/DMGameplayAbility.h"
+#include "AbilitySystem/Abilities/DMProjectileSpell.h"
 #include "DMMousePointSpell.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class DM_API UDMMousePointSpell : public UDMGameplayAbility
+class DM_API UDMMousePointSpell : public UDMProjectileSpell
 {
 	GENERATED_BODY()
 	

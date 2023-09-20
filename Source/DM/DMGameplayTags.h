@@ -30,6 +30,10 @@ public:
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
 
+	//FGameplayTag Event_Montage_FireBolt;
+	FGameplayTag Event_Montage_Projectile;
+	FGameplayTag Event_Montage_Attack;
+
 	FGameplayTag Monster_Attack_Default;
 
 private:
