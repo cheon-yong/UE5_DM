@@ -9,6 +9,8 @@
 /**
  * 
  */
+class UAnimMontage;
+
 UCLASS()
 class DM_API UDMGameplayAbility : public UGameplayAbility
 {
@@ -21,8 +23,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	AActor* CheckRange();
 
+	UFUNCTION(BlueprintCallable)
+	void Casting();
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void ContinueAbility();
+
 	void EndAbilityByController();
 
 public:
@@ -31,6 +37,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimMontage> CastingMontage;
+
+	UPROPERTY(EditAnywhere)
+	float CastingTime = 0.f;
 
 	UPROPERTY(EditAnywhere)
 	float AbilityRange = 20.f;

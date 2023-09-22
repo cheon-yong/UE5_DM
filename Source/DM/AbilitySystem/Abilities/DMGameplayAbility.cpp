@@ -42,6 +42,14 @@ AActor* UDMGameplayAbility::CheckRange()
 	return HitResult.GetActor();
 }
 
+void UDMGameplayAbility::Casting()
+{
+	if (CastingTime == 0)
+		return;
+
+	GetCurrentActorInfo()->GetAnimInstance()->Montage_Play(CastingMontage);
+}
+
 void UDMGameplayAbility::EndAbilityByController()
 {
 	EndAbility(GetCurrentAbilitySpecHandle(),
