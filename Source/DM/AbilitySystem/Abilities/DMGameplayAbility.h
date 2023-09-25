@@ -38,10 +38,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UAnimMontage> CastingMontage;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float CastingTime = 0.f;
 
 	UPROPERTY(EditAnywhere)
