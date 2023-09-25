@@ -26,6 +26,7 @@ UENUM(BlueprintType)
 enum class ECharacterState : uint8
 {
 	Living,
+	Casting,
 	Dead,
 };
 
@@ -61,6 +62,7 @@ public:
 
 	ECharacterState GetCharacterState() { return CharacterState; }
 
+	UFUNCTION(BlueprintCallable)
 	virtual void SetCharacterState(ECharacterState NewState);
 
 	UPROPERTY(BlueprintAssignable)

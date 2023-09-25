@@ -147,15 +147,20 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	//GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
 	if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_RMB))
 	{
+		// Ability Cancel
+
+		APawn* ControllerPawn = GetPawn();
 		if (ActivatingAbility != nullptr)
 		{
 			ActivatingAbility->EndAbilityByController();
 			ActivatingAbility = nullptr;
 			bAutoRunning = false;
+			if (ADMCharacter* DMCharacter = Cast<ADMCharacter>(ControllerPawn))
+			{
+				DMCharacter->SetCharacterState(ECharacterState::Living);
+			}
 			return;
 		}
-
-		APawn* ControllerPawn = GetPawn();
 
 		if (FollowTime <= ShortPressThreshold && ControllerPawn)
 		{
@@ -173,7 +178,6 @@ void ADMPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		}
 		FollowTime = 0.f;
 		bTargeting = false;
-		UE_LOG(LogTemp, Error, TEXT("Released Moving"));
 	}
 	else if (InputTag.MatchesTagExact(FDMGameplayTags::Get().InputTag_LMB))
 	{

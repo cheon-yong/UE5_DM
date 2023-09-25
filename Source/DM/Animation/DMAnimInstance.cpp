@@ -26,6 +26,7 @@ void UDMAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	if (ADMCharacter* DMCharacter = Cast<ADMCharacter>(Character))
 	{
 		bIsDead = DMCharacter->GetCharacterState() == ECharacterState::Dead ? true : false;
+		bIsCasting = DMCharacter->GetCharacterState() == ECharacterState::Casting ? true : false;
 	}
 
 	if (bIsDead)

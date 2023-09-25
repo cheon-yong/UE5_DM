@@ -89,10 +89,11 @@ public:
 	FVector CachedDestination = FVector::ZeroVector;
 	float FollowTime = 0.f;
 	float ShortPressThreshold = 0.5f;
-	bool bAutoRunning = false;
 	bool bTargeting = false;
 	bool bShiftKeyDown = false;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bAutoRunning = false;
 private:
 	FInputModeGameOnly GameInputMode;
 	FInputModeUIOnly UIInputMode;
