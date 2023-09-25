@@ -79,6 +79,11 @@ void FDMGameplayTags::InitializeNativeGameplayTags()
 		FString("Input Tag for 4 key")
 	);
 
+	GameplayTags.InputTag_Space = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.Space"),
+		FString("Input Tag for Space Key")
+	);
+
 	// Event
 	GameplayTags.Event_Montage_Projectile = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Event.Montage.Projectile"),

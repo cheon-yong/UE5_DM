@@ -29,6 +29,7 @@ public:
 	FGameplayTag InputTag_2;
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
+	FGameplayTag InputTag_Space;
 
 	//FGameplayTag Event_Montage_FireBolt;
 	FGameplayTag Event_Montage_Projectile;
