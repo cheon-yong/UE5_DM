@@ -86,6 +86,16 @@ void ADMCharacter::AddCharacterAbilities()
 
 FVector ADMCharacter::GetCombatSocketLocation()
 {
-	check(Weapon);
-	return Weapon->GetSocketLocation(WeaponTipSocketName);
+	FVector SocketPosition = FVector::Zero();
+	if (Weapon)
+	{
+		check(Weapon);
+		SocketPosition = Weapon->GetSocketLocation(WeaponTipSocketName);
+	}
+	else
+	{
+		SocketPosition = GetMesh()->GetSocketLocation(BodySocketName);
+	}
+	
+	return SocketPosition;
 }
