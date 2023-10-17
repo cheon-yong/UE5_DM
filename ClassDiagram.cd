@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="UDMAssetManager" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\DMAssetManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMAbilitySystemComponent" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAEAAABAAAIAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\DMAbilitySystemComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMAbilitySystemLibrary" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\DMAbilitySystemLibrary.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMAttributeSet" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABCICAABCCggCBAAAAAAAggAAIAEAAIgAAoiIkAJGAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\DMAttributeSet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMGameplayAbility" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIABAgAgBQAQAAAAACAAAAACAAAAAAAASAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\Abilities\DMGameplayAbility.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMMousePointSpell" Collapsed="true">
+    <Position X="6.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\Abilities\DMMousePointSpell.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMProjectileSpell" Collapsed="true">
+    <Position X="6.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQ=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\Abilities\DMProjectileSpell.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UTargetDataUnderMouse" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAABAAAAAAAAAAABAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\AbilityTasks\TargetDataUnderMouse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UAttributeInfo" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\Data\AttributeInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UMMC_MaxHealth" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\MMC\MMC_MaxHealth.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMEffectActor" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAgCABAAAGAAAAAACQAAEAgIBAAIEAAAAAAgCAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Actor\DMEffectActor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMEffectArea" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AmAAAAAAAAAAAFEAACQAAAAAABAAQAAABAAAAAggAIA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Actor\DMEffectArea.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMProjectile" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AmAAAAAAAAAAABEAACRAAAAAABAAAAAABAAAAAggAIA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Actor\DMProjectile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UBTDecorator_CanAttack" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AI\BTDecorator_CanAttack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UBTService_DetectPlayer" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AI\BTService_DetectPlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UBTTask_Attack" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEBAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AI\BTTask_Attack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UBTTask_TurnToTarget" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AI\BTTask_TurnToTarget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMAIController" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiIAAAEAQAAAAACAAAAAAAACAQAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AI\DMAIController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMAnimInstance" Collapsed="true">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAABCAAAAACAEAiAABAAAgAAAAECgA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Animation\DMAnimInstance.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMCharacter" Collapsed="true">
+    <Position X="1.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAQgAhADIAAIAAAAAABACQAAAAgEBgAAgAAAECgQMA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Character\DMCharacter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMMonster" Collapsed="true">
+    <Position X="1.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAABIAAAAABEACQAAAAgAAABABAAAAAiAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Character\DMMonster.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMPlayer" Collapsed="true">
+    <Position X="3.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAJgAAAAABAAQACAAgAAAAAACgAAAgAIA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Character\DMPlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMPlayerController" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAAAIYAJBAgACgAAAEDEABBFAAQAAAABAKQADhEAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Controller\DMPlayerController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMPlayerState" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAgACAAgAAAAAAAAAAQAAAAAAAABgAIAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Controller\DMPlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMGameMode" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CARAAAIEAAAABAAAIAAAQgAEEIAAAAAAAKgAgAAgAAQ=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Game\DMGameMode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMGameStateBase" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAAAAgAABQAAAAAAIAAAAAAAAAAAAAAAAgIAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Game\DMGameStateBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMInputComponent" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Input\DMInputComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMInputConfig" Collapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Input\DMInputConfig.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UCombatInterface" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Interface\CombatInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICombatInterface" Collapsed="true">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Interface\CombatInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UEnemyInterface" Collapsed="true">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Interface\EnemyInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IEnemyInterface" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Interface\EnemyInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UAttributeMenuWidgetController" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAIIABAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\AttributeMenuWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMWidgetController" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgASAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\DMWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UGameOverWidgetController" Collapsed="true">
+    <Position X="0.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAADAAAACAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\GameOverWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIntroWidgetController" Collapsed="true">
+    <Position X="2.75" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgACAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\IntroWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UOverlayWidgetController" Collapsed="true">
+    <Position X="5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgQAAgAAAAAABAgEBAEAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\OverlayWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADMHUD" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIgAAgAgkAAgQQAEAQAIBACIAgAAIAgCAIgAAI=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\HUD\DMHUD.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UDMUserWidget" Collapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAEAEAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Widget\DMUserWidget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="FDMGameplayTags" Collapsed="true">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAUAAAAAIQAAABAAAEAQAJAgACIIAAAEBgA8AIAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\DMGameplayTags.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FEffectProperties" Collapsed="true">
+    <Position X="15" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAACAAAAAACAAAAIAAAAAEEAAAAAEAQAACAAAgAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\DMAttributeSet.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FDMAttributeInfo" Collapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAQEAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\AbilitySystem\Data\AttributeInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FDMInputAction" Collapsed="true">
+    <Position X="13.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Input\DMInputConfig.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FWidgetControllerParams" Collapsed="true">
+    <Position X="18.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\DMWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FUIWidgetRow" Collapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAACAAAAAAAAAAAABAAAAAAIAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\UI\Controller\OverlayWidgetController.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="EEffectApplicationPolicy" Collapsed="true">
+    <Position X="11.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Actor\DMEffectActor.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EEffectRemovalPolicy" Collapsed="true">
+    <Position X="13.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Actor\DMEffectActor.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ECharacterState" Collapsed="true">
+    <Position X="9.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACAAAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Character\DMCharacter.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EGameState" Collapsed="true">
+    <Position X="15" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAgIAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>C:\unreal_workspace\DM\Source\DM\Game\DMGameStateBase.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
