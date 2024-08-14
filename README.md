@@ -41,7 +41,8 @@
 
 ### 몬스터 AI
 
-- 생성된 몬스터는 주기적으로 자신의 주변에 플레이어를 탐색합니다.
+- 몬스터의 AI는 `Behavior Tree` 와 `Black Board`를 활용하여 구현하였습니다.
+- 생성된 몬스터는 몬스터를 중심으로 `Collision`을 이용하여 주기적으로 플레이어를 탐색합니다.
 - 탐색에 성공하면 몬스터는 플레이어 방향으로 이동하여 공격합니다.
 
 ![AI1](https://github.com/user-attachments/assets/bb209817-33d6-4590-8f53-50638984f72d)
@@ -55,14 +56,15 @@
 ### 월드 요소
 
 - 월드에 배치할 수 있는 포션과 트랩을 구현해두었습니다.
+- 해당 요소들은 `Gameplay Ability System`을 기반으로 구현하였습니다.
 
 ![Object1](https://github.com/user-attachments/assets/d9f6bcd0-00ac-468c-ad33-83651e6b665c)
 
-- 트랩에 가까이 가게 되면 HP가 지속적으로 감소합니다.
+- 트랩은 Collision을 가지고 있고 플레이어와 Overlap 되면 HP가 지속적으로 감소합니다.
 
 ![Object2](https://github.com/user-attachments/assets/4383f99f-aafe-4239-a401-ba9f9c925c22)
 
-- 포션에 가까이 가게 되면 HP가 회복되고 포션은 사라집니다.
+- 포션도 같은 방식으로 구현하였지만 포션은 HP를 회복시키고 사라집니다.
 
 ![Object3](https://github.com/user-attachments/assets/c5f24695-a80b-460e-bd98-ef6ff376fb86)
 
