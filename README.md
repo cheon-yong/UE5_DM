@@ -39,6 +39,35 @@
 
 ---
 
+### 몬스터 AI
+
+- 생성된 몬스터는 주기적으로 자신의 주변에 플레이어를 탐색합니다.
+- 탐색에 성공하면 몬스터는 플레이어 방향으로 이동하여 공격합니다.
+
+![AI1](https://github.com/user-attachments/assets/bb209817-33d6-4590-8f53-50638984f72d)
+
+- HP가 0이 된 몬스터는 사망 애니메이션을 출력하고 월드에서 소멸합니다.
+
+![AI2](https://github.com/user-attachments/assets/604b5227-440d-4639-b97b-f69cf88261b1)
+
+---
+
+### 월드 요소
+
+- 월드에 배치할 수 있는 포션과 트랩을 구현해두었습니다.
+
+![Object1](https://github.com/user-attachments/assets/d9f6bcd0-00ac-468c-ad33-83651e6b665c)
+
+- 트랩에 가까이 가게 되면 HP가 지속적으로 감소합니다.
+
+![Object2](https://github.com/user-attachments/assets/4383f99f-aafe-4239-a401-ba9f9c925c22)
+
+- 포션에 가까이 가게 되면 HP가 회복되고 포션은 사라집니다.
+
+![Object3](https://github.com/user-attachments/assets/c5f24695-a80b-460e-bd98-ef6ff376fb86)
+
+---
+
 ### UI
 
 - HUD 상단에는 현재 캐릭터의 HP, MP 정보, 현재 필드의 몬스터 수, 목표 달성 현황을 나타내는 Widget을 추가하였습니다.
